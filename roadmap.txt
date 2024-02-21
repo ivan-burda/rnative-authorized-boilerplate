@@ -1,0 +1,5 @@
+==========Todo==========
+Change nickname
+Reset password
+Use federated-login authentication method (google)
+Delete account
