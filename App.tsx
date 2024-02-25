@@ -13,6 +13,7 @@ import {RegisterScreen} from "./screens/RegisterScreen";
 import {IconButton} from "./components/IconButton/IconButton";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {RootStackParamList} from "./types/types";
+import {RoutingScreen} from "./screens/RoutingScreen";
 
 
 const Stack = createNativeStackNavigator();
@@ -58,10 +59,11 @@ function AuthenticatedStack() {
     >
     <Stack.Screen
         name="protectedScreen"
-        component={LoginProtectedScreen}
+        component={RoutingScreen}
         options={( ) => ({
+            headerShown:false,
             headerTintColor:Colors.primary500,
-          title: 'Protected screen',
+          title: 'Feelings',
           headerRight: ({ tintColor }) => (
               <IconButton
                   icon="power-outline"

@@ -35,7 +35,7 @@ export const LoginScreen: FC = () => {
     }
 
     return(<View style={styles.landingScreen}>
-            <Text style={sharedStyles.header1}>Protected Screen</Text>
+            <Text style={sharedStyles.header1}>Feelings</Text>
             <Image source={require('../assets/logo.jpg')} style={styles.logo}/>
         <LoginForm onAuthenticate={loginHandler} />
     </View>)
