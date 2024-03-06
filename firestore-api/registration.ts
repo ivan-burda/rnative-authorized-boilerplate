@@ -2,11 +2,11 @@ import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import db from "@react-native-firebase/database"
 import {useEffect} from "react";
 
-const createProfile = async(response:any, username:string) => {
+export const createProfile = async(response:any, username:string) => {
     db().ref(`/users/${response.user.uid}`).set({username})
 };
 
-const register = async(email:string, password:string, username:string) => {
+export const register = async(email:string, password:string, username:string) => {
     if(email && password){
         try{
             const response = await auth().createUserWithEmailAndPassword(email, password)
@@ -21,7 +21,7 @@ const register = async(email:string, password:string, username:string) => {
     }
 };
 
-const login = async(email:string, password:string) => {
+export const login = async(email:string, password:string) => {
     if(email && password){
         try{
             const response = await auth().signInWithEmailAndPassword(email,password);
@@ -43,8 +43,8 @@ const onAuthStateChanged = (user:FirebaseAuthTypes.User|null) => {
     }
 };
 
+export const logout = async() => {
+    await auth().signOut()
+};
+
 // Place this to the loading screen
-useEffect(()=>{
-    const sub = auth().onAuthStateChanged(onAuthStateChanged);
-    return sub;
-},[])

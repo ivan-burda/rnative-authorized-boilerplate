@@ -1,20 +1,14 @@
-import {createContext, FC, ReactNode, useState} from "react";
+import {createContext, FC, ReactNode, useEffect, useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import auth, {FirebaseAuthTypes} from "@react-native-firebase/auth";
 
 interface AuthContextType {
-    token: string|null;
     isAuthenticated: boolean;
-    authenticate: (token:string)=>void;
-    logout: ()=>void;
 }
 
 
 export const AuthContext = createContext<AuthContextType|undefined>({
-    token: null,
     isAuthenticated: false,
-    authenticate: () => {},
-    logout: () => {
-        console.log('Hello');},
 });
 
 interface Props{
@@ -22,24 +16,25 @@ interface Props{
 }
 
 export const AuthContextProvider: FC<Props> = ({children}) => {
-    const [authToken, setAuthToken] = useState<string|null>(null);
+    const [isAuthOK, setIsAuthOK] = useState(false);
 
-    function authenticate(token:string) {
-        setAuthToken(token);
-        AsyncStorage.setItem("token", token);
-    }
 
-    function logout() {
-        console.log('logout');
-        setAuthToken(null);
-        AsyncStorage.removeItem("token");
-    }
+    const onAuthStateChanged = (user:FirebaseAuthTypes.User|null) => {
+        if(user){
+            setIsAuthOK(true)
+        }else{
+            setIsAuthOK(false)
+        }
+    };
+
+    useEffect(()=>{
+        return auth().onAuthStateChanged(onAuthStateChanged);
+    },[])
 
     const value = {
-        token: authToken,
-        isAuthenticated: !!authToken,
-        authenticate,
-        logout,
+        isAuthenticated: isAuthOK,
+        // authenticate,
+        // logout,
     };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

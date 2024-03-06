@@ -11,6 +11,8 @@ import {useNavigation} from "@react-navigation/native";
 
 import type {RootStackParamList} from '../types/types';
 import {StackNavigationProp} from "@react-navigation/stack";
+import {login} from "../firestore-api/registration";
+import auth from "@react-native-firebase/auth";
 
 export const LoginScreen: FC = () => {
     const [isAuthenticating, setIsAuthenticating] = useState(false);
@@ -19,13 +21,24 @@ export const LoginScreen: FC = () => {
 
     const loginHandler = async({email, password}:Credentials) => {
         setIsAuthenticating(true);
-
-        try{
-            const token = await loginUser({email, password});
-            authContext?.authenticate(token);
-        }catch(error){
-            Alert.alert("Authentication failed", "Cannot login. Please check credentials")
+        if(email && password){
+            try{
+                const response = await auth().signInWithEmailAndPassword(email,password);
+                if(response.user){
+                    console.log('Login successful');
+                }
+            }
+            catch(e){
+                Alert.alert("Authentication failed", "Cannot login. Please check credentials")
+            }
         }
+
+        // try{
+        //     const token = await loginUser({email, password});
+        //     authContext?.authenticate(token);
+        // }catch(error){
+        //     Alert.alert("Authentication failed", "Cannot login. Please check credentials")
+        // }
         setIsAuthenticating(false);
 
     };

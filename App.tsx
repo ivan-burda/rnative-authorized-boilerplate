@@ -1,12 +1,10 @@
 import {StatusBar} from 'expo-status-bar';
-import {Button, View, StyleSheet} from 'react-native';
+import {Button, StyleSheet, View} from 'react-native';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import {LoginProtectedScreen} from "./screens/LoginProtectedScreen";
 import {AuthContext, AuthContextProvider} from "./store/AuthContextProvider";
 import {Colors} from "./constants/colors";
 import {FC, useCallback, useContext, useEffect, useState} from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as SplashScreen from "expo-splash-screen";
 import {LoginScreen} from "./screens/LoginScreen";
 import {RegisterScreen} from "./screens/RegisterScreen";
@@ -14,6 +12,8 @@ import {IconButton} from "./components/IconButton/IconButton";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {RootStackParamList} from "./types/types";
 import {RoutingScreen} from "./screens/RoutingScreen";
+import auth, {FirebaseAuthTypes} from "@react-native-firebase/auth";
+import {logout} from "./firestore-api/registration";
 
 
 const Stack = createNativeStackNavigator();
@@ -50,7 +50,6 @@ function AuthenticationStack(){
 
 
 function AuthenticatedStack() {
-    const authContext = useContext(AuthContext);
     return(<Stack.Navigator
         screenOptions={{
             headerStyle: { backgroundColor: Colors.bgSecondary },
@@ -70,7 +69,7 @@ function AuthenticatedStack() {
                   size={24}
                   color={tintColor}
                   label="Logout"
-                  onPress={() => authContext?.logout()}
+                  onPress={logout}
               />
           ),
         })}
@@ -88,30 +87,32 @@ function Navigation(){
 }
 
 const Root:FC = () => {
-  const [isAppReady, setIsAppReady] = useState(false);
-  const authContext = useContext(AuthContext);
+    const [isAuthOK, setIsAuthOK] = useState(false);
 
-  useEffect(()=>{
-    const fetchToken = async()=>{
-      const storedToken = await AsyncStorage.getItem("token");
-
-      if(storedToken){
-        authContext?.authenticate(storedToken)
-      }
-      setIsAppReady(true)
+    const onAuthStateChanged = (user:FirebaseAuthTypes.User|null) => {
+        if(user){
+            console.log('user ok');
+            setIsAuthOK(true)
+        }else{
+            console.log('user nok');
+            setIsAuthOK(false)
+        }
     };
-    fetchToken()
-  },[])
+
+    useEffect(()=>{
+        return auth().onAuthStateChanged(onAuthStateChanged);
+    },[])
 
   const onLayoutRootView = useCallback(async()=>{
-    if(isAppReady){
+    if(isAuthOK){
       await SplashScreen.hideAsync()
     }
-  },[isAppReady])
+      if(!isAuthOK){
+          return null;
+      }
+  },[isAuthOK])
 
-    if(!isAppReady){
-        return null;
-    }
+
 
   return(<View style={{ flex: 1 }} onLayout={onLayoutRootView}>
     <Navigation/>
@@ -123,6 +124,7 @@ export default function App() {
    <>
    <StatusBar style="dark"/>
      <AuthContextProvider>
+
        <Root/>
      </AuthContextProvider>
    </>

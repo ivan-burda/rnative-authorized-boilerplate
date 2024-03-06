@@ -8,6 +8,7 @@ import {AuthContext} from "../../store/AuthContextProvider";
 import {Screen1} from "../../screens/Screen1";
 import {Screen3} from "../../screens/Screen3";
 import {Screen2} from "../../screens/Screen2";
+import {logout} from "../../firestore-api/registration";
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -25,7 +26,7 @@ export function NavigationBottomTabs() {
                     size={24}
                     color={tintColor}
                     label="Logout"
-                    onPress={() => authContext?.logout()}
+                    onPress={logout}
                 />
             ),
         })}

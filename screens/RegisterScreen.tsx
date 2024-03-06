@@ -1,14 +1,15 @@
 import {FC, useContext, useState} from 'react';
-import {Alert, Button, StyleSheet, Text, View} from "react-native";
+import {Alert, StyleSheet, Text, View} from "react-native";
 import {RegisterForm} from "./RegisterForm";
 import {sharedStyles} from "../styles";
 import {AuthContext} from "../store/AuthContextProvider";
 import {LoadingOverlay} from "../components/LoadingOverlay";
-import {createUser} from "../utils/authenticate";
 import {Colors} from "../constants/colors";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {RootStackParamList} from "../types/types";
+import auth from "@react-native-firebase/auth";
+import {createProfile} from "../firestore-api/registration";
 
 export interface Credentials {
  email:string;
@@ -23,18 +24,31 @@ export interface RegisterCredentials {
 
 export const RegisterScreen: FC = () => {
  const [isAuthenticating, setIsAuthenticating] = useState(false);
-    const { navigate } = useNavigation<StackNavigationProp<RootStackParamList>>()
-    const authContext = useContext(AuthContext);
 
  const signupHandler = async({email, password, username}:RegisterCredentials) => {
    setIsAuthenticating(true);
-   try{
-     const token = await createUser({email, password,username});
-     authContext?.authenticate(token)
-   }catch (error){
-     Alert.alert("User creation failed","Cannot create a new user. Please check entered data and try again.")
-     setIsAuthenticating(false)
-   }
+     if(email && password){
+         try{
+             const response = await auth().createUserWithEmailAndPassword(email, password)
+             if(response.user){
+                 await createProfile(response, username);
+             }
+         }
+         catch(e){
+             Alert.alert("User creation failed","Cannot create a new user. Please check entered data and try again.")
+             setIsAuthenticating(false)
+         }
+
+     }
+
+   // try{
+   //   const token = await createUser({email, password,username});
+   //   authContext?.authenticate(token)
+   // }catch (error){
+   //   Alert.alert("User creation failed","Cannot create a new user. Please check entered data and try again.")
+   //   setIsAuthenticating(false)
+   // }
+
  };
 
  if(isAuthenticating){
