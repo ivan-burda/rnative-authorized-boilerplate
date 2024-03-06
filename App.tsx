@@ -5,7 +5,7 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {LoginProtectedScreen} from "./screens/LoginProtectedScreen";
 import {AuthContext, AuthContextProvider} from "./store/AuthContextProvider";
 import {Colors} from "./constants/colors";
-import {useCallback, useContext, useEffect, useState} from "react";
+import {FC, useCallback, useContext, useEffect, useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as SplashScreen from "expo-splash-screen";
 import {LoginScreen} from "./screens/LoginScreen";
@@ -87,7 +87,7 @@ function Navigation(){
   </NavigationContainer>
 }
 
-function Root(){
+const Root:FC = () => {
   const [isAppReady, setIsAppReady] = useState(false);
   const authContext = useContext(AuthContext);
 
@@ -116,7 +116,7 @@ function Root(){
   return(<View style={{ flex: 1 }} onLayout={onLayoutRootView}>
     <Navigation/>
   </View>)
-}
+};
 
 export default function App() {
   return (

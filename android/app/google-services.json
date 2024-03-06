@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1016437152914",
+    "project_id": "feelings-tracker-application",
+    "storage_bucket": "feelings-tracker-application.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016437152914:android:249d3c4971752218e19a4b",
+        "android_client_info": {
+          "package_name": "com.ivanburda.feelingstracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsLCLWglX5pu02Kn5JT7D6gS2RzMhfiQQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

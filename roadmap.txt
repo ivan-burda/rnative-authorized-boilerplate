@@ -3,3 +3,9 @@ Change nickname
 Reset password
 Use federated-login authentication method (google)
 Delete account
+
+
+==========Install commands==========
+npx expo install
+npx expo prebuild
+--use the same app name like in the ios/android setup in Firebase
