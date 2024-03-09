@@ -10,8 +10,3 @@ export type RootStackParamList = {
     NotFound: undefined;
     Splash: undefined;
 };
-
-export type MessageNavProps<T extends keyof RootStackParamList> = {
-    navigation: StackNavigationProp<RootStackParamList, T>;
-    route: RouteProp<RootStackParamList, T>;
-};

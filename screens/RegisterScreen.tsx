@@ -1,13 +1,9 @@
-import {FC, useContext, useState} from 'react';
+import {FC, useState} from 'react';
 import {Alert, StyleSheet, Text, View} from "react-native";
 import {RegisterForm} from "./RegisterForm";
 import {sharedStyles} from "../styles";
-import {AuthContext} from "../store/AuthContextProvider";
 import {LoadingOverlay} from "../components/LoadingOverlay";
 import {Colors} from "../constants/colors";
-import {useNavigation} from "@react-navigation/native";
-import {StackNavigationProp} from "@react-navigation/stack";
-import {RootStackParamList} from "../types/types";
 import auth from "@react-native-firebase/auth";
 import {createProfile} from "../firestore-api/registration";
 
@@ -41,14 +37,6 @@ export const RegisterScreen: FC = () => {
 
      }
 
-   // try{
-   //   const token = await createUser({email, password,username});
-   //   authContext?.authenticate(token)
-   // }catch (error){
-   //   Alert.alert("User creation failed","Cannot create a new user. Please check entered data and try again.")
-   //   setIsAuthenticating(false)
-   // }
-
  };
 
  if(isAuthenticating){
@@ -66,7 +54,7 @@ const styles = StyleSheet.create({
       flex:1,
       justifyContent:"center",
       alignItems:"center",
-      backgroundColor:Colors.bgSecondary
+      backgroundColor:Colors.bgPrimary
      },
     buttonContainer:{
         width: "80%",

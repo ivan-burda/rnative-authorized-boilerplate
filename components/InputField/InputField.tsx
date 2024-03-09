@@ -1,7 +1,7 @@
 import {FC} from 'react';
 import {KeyboardType, StyleSheet, Text, TextInput, View} from "react-native";
-import {Colors} from "../../constants/colors";
 import {TextInputProps} from "react-native/Libraries/Components/TextInput/TextInput";
+import {Colors} from "../../constants/colors";
 
 interface TextInputConfig {
     keyboardType: KeyboardType;
@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
         borderRadius: 10,
         borderBottomColor: Colors.primary500,
         borderBottomWidth: 2,
-        backgroundColor: Colors.bgSecondary,
+        backgroundColor: Colors.bgPrimary,
     },
     invalidInputField:{
         borderBottomColor: Colors.danger,

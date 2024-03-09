@@ -1,23 +1,14 @@
-import {FC, useContext, useState} from 'react';
-import {Alert, Button, Image, StyleSheet, Text, View} from "react-native";
+import {FC, useState} from 'react';
+import {Alert, Image, StyleSheet, Text, View} from "react-native";
 import {LoginForm} from "./LoginForm";
 import {sharedStyles} from "../styles";
-import {AuthContext} from "../store/AuthContextProvider";
 import {LoadingOverlay} from "../components/LoadingOverlay";
 import {Credentials} from "./RegisterScreen";
-import {loginUser} from "../utils/authenticate";
 import {Colors} from "../constants/colors";
-import {useNavigation} from "@react-navigation/native";
-
-import type {RootStackParamList} from '../types/types';
-import {StackNavigationProp} from "@react-navigation/stack";
-import {login} from "../firestore-api/registration";
 import auth from "@react-native-firebase/auth";
 
 export const LoginScreen: FC = () => {
     const [isAuthenticating, setIsAuthenticating] = useState(false);
-    const { navigate } = useNavigation<StackNavigationProp<RootStackParamList>>()
-    const authContext = useContext(AuthContext);
 
     const loginHandler = async({email, password}:Credentials) => {
         setIsAuthenticating(true);
@@ -33,12 +24,6 @@ export const LoginScreen: FC = () => {
             }
         }
 
-        // try{
-        //     const token = await loginUser({email, password});
-        //     authContext?.authenticate(token);
-        // }catch(error){
-        //     Alert.alert("Authentication failed", "Cannot login. Please check credentials")
-        // }
         setIsAuthenticating(false);
 
     };
@@ -64,7 +49,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent:"center",
         alignItems:"center",
-        backgroundColor:Colors.bgSecondary
+        backgroundColor:Colors.bgPrimary
 
     },
     logo:{

@@ -11,7 +11,6 @@ interface Props {
     onSubmit: ({email, password, username}:RegisterCredentials)=>void;
 }
 
-
 type InputFields = 'email'|'password'|'username'
 
 export const RegisterForm: FC<Props> = ({onSubmit}) => {

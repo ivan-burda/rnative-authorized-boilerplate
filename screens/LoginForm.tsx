@@ -3,13 +3,12 @@ import {Button, Text, View} from "react-native";
 import {InputField} from "../components/InputField/InputField";
 import {isEmailValid} from "../utils/isEmailValid";
 import {isPasswordValid} from "../utils/isPasswordValid";
-import {sharedStyles} from "../styles";
 import {Credentials} from "./RegisterScreen";
+import {sharedStyles} from "../styles";
 
 interface Props {
     onAuthenticate: ({email, password}:Credentials)=>void
 }
-
 
 type InputFields = 'email'|'password'
 
@@ -27,8 +26,6 @@ const [passwordValidity, setPasswordValidity] = useState(true);
             setPassword(enteredValue)
         }
     };
-
-
 
     const submitHandler = () => {
         const emailIsValid = isEmailValid(email) ;

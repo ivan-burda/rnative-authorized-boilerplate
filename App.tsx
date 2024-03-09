@@ -24,7 +24,7 @@ function AuthenticationStack(){
     return(<Stack.Navigator
         screenOptions={{
             // headerShown:false,
-            headerStyle: { backgroundColor: Colors.bgSecondary },
+            headerStyle: { backgroundColor: Colors.bgPrimary },
             headerTintColor: 'fff',
             contentStyle: { backgroundColor: Colors.primary100 },
         }}>
@@ -52,7 +52,7 @@ function AuthenticationStack(){
 function AuthenticatedStack() {
     return(<Stack.Navigator
         screenOptions={{
-            headerStyle: { backgroundColor: Colors.bgSecondary },
+            headerStyle: { backgroundColor: Colors.bgPrimary },
             contentStyle: { backgroundColor: Colors.primary100 },
         }}
     >
