@@ -5,16 +5,23 @@ import {sharedStyles} from "../styles";
 import {LoadingOverlay} from "../components/LoadingOverlay";
 import {Credentials} from "./RegisterScreen";
 import {Colors} from "../constants/colors";
-import auth from "@react-native-firebase/auth";
+import {getAuth, signInWithEmailAndPassword,  initializeAuth,getReactNativePersistence} from "firebase/auth";
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 
+import {app} from "../firebaseConfig";
+const auth = initializeAuth(app, {
+    persistence: getReactNativePersistence(ReactNativeAsyncStorage)
+});
 export const LoginScreen: FC = () => {
     const [isAuthenticating, setIsAuthenticating] = useState(false);
+    // const auth = getAuth(app);
+
 
     const loginHandler = async({email, password}:Credentials) => {
         setIsAuthenticating(true);
         if(email && password){
             try{
-                const response = await auth().signInWithEmailAndPassword(email,password);
+                const response = await signInWithEmailAndPassword(auth,email,password);
                 if(response.user){
                     console.log('Login successful');
                 }

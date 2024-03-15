@@ -1,9 +1,10 @@
 {
   "expo": {
-    "name": "rnative-authorize-boilerplate",
-    "slug": "rnative-authorize-boilerplate",
+    "name": "rnative-auth-boiler",
+    "slug": "rnative-auth-boiler",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -28,17 +29,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "plugins": [
-      "@react-native-firebase/app",
-      [
-        "expo-build-properties",
-        {
-          "ios": {
-            "useFrameworks": "static"
-          }
-        }
-      ]
-    ]
+    }
   }
 }

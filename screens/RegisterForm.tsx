@@ -1,11 +1,11 @@
 import {FC, useState} from 'react';
-import {Button, View, Text} from "react-native";
+import {Button, Text, View} from "react-native";
 import {InputField} from "../components/InputField/InputField";
 import {isEmailValid} from "../utils/isEmailValid";
 import {isPasswordValid} from "../utils/isPasswordValid";
 import {isUsernameValid} from "../utils/isUsernameValid";
 import {sharedStyles} from "../styles";
-import {Credentials, RegisterCredentials} from "./RegisterScreen";
+import {RegisterCredentials} from "./RegisterScreen";
 
 interface Props {
     onSubmit: ({email, password, username}:RegisterCredentials)=>void;

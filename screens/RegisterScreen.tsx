@@ -1,11 +1,10 @@
 import {FC, useState} from 'react';
-import {Alert, StyleSheet, Text, View} from "react-native";
+import {StyleSheet, Text, View} from "react-native";
 import {RegisterForm} from "./RegisterForm";
 import {sharedStyles} from "../styles";
 import {LoadingOverlay} from "../components/LoadingOverlay";
 import {Colors} from "../constants/colors";
-import auth from "@react-native-firebase/auth";
-import {createProfile} from "../firestore-api/registration";
+import {registerUser} from "../firestore-api/registration";
 
 export interface Credentials {
  email:string;
@@ -24,19 +23,10 @@ export const RegisterScreen: FC = () => {
  const signupHandler = async({email, password, username}:RegisterCredentials) => {
    setIsAuthenticating(true);
      if(email && password){
-         try{
-             const response = await auth().createUserWithEmailAndPassword(email, password)
-             if(response.user){
-                 await createProfile(response, username);
-             }
-         }
-         catch(e){
-             Alert.alert("User creation failed","Cannot create a new user. Please check entered data and try again.")
-             setIsAuthenticating(false)
-         }
-
+         registerUser(email, password, username, setIsAuthenticating)
+             .then(()=>console.log('Profile created'))
+             .catch(()=>console.log('Profile creation failed'))
      }
-
  };
 
  if(isAuthenticating){

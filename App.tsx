@@ -12,9 +12,10 @@ import {IconButton} from "./components/IconButton/IconButton";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {RootStackParamList} from "./types/types";
 import {RoutingScreen} from "./screens/RoutingScreen";
-import auth, {FirebaseAuthTypes} from "@react-native-firebase/auth";
 import {logout} from "./firestore-api/registration";
 
+import {app} from "./firebaseConfig";
+import {getAuth, onAuthStateChanged} from "firebase/auth";
 
 const Stack = createNativeStackNavigator();
 
@@ -88,19 +89,20 @@ function Navigation(){
 
 const Root:FC = () => {
     const [isAuthOK, setIsAuthOK] = useState(false);
-
-    const onAuthStateChanged = (user:FirebaseAuthTypes.User|null) => {
+    const auth = getAuth(app);
+    const onAuthStateChangedHandler = (user:unknown) => {
         if(user){
-            console.log('user ok');
+            // console.log(user);
+            // console.log('user ok');
             setIsAuthOK(true)
         }else{
-            console.log('user nok');
+            // console.log('user nok');
             setIsAuthOK(false)
         }
     };
 
     useEffect(()=>{
-        return auth().onAuthStateChanged(onAuthStateChanged);
+        return onAuthStateChanged(auth,onAuthStateChangedHandler);
     },[])
 
   const onLayoutRootView = useCallback(async()=>{

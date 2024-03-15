@@ -1,6 +1,6 @@
 import {createContext, FC, ReactNode, useEffect, useState} from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import auth, {FirebaseAuthTypes} from "@react-native-firebase/auth";
+import {getAuth, onAuthStateChanged} from "firebase/auth";
+import {app} from "../firebaseConfig";
 
 interface AuthContextType {
     isAuthenticated: boolean;
@@ -17,9 +17,9 @@ interface Props{
 
 export const AuthContextProvider: FC<Props> = ({children}) => {
     const [isAuthOK, setIsAuthOK] = useState(false);
+    const auth = getAuth(app);
 
-
-    const onAuthStateChanged = (user:FirebaseAuthTypes.User|null) => {
+    const onAuthStateChangedHandler = (user:unknown) => {
         if(user){
             setIsAuthOK(true)
         }else{
@@ -28,7 +28,7 @@ export const AuthContextProvider: FC<Props> = ({children}) => {
     };
 
     useEffect(()=>{
-        return auth().onAuthStateChanged(onAuthStateChanged);
+        return onAuthStateChanged(auth, onAuthStateChangedHandler);
     },[])
 
     const value = {

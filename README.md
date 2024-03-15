@@ -1,1 +1,0 @@
-# rnative-authorized-boilerplate
