@@ -4,52 +4,52 @@ import {RegisterForm} from "./RegisterForm";
 import {sharedStyles} from "../styles";
 import {LoadingOverlay} from "../components/LoadingOverlay";
 import {Colors} from "../constants/colors";
-import {registerUser} from "../firestore-api/firestore";
+import {registerUser} from "../firestore-api/authentication";
 
 export interface Credentials {
- email:string;
- password: string;
+    email: string;
+    password: string;
 }
 
 export interface RegisterCredentials {
-    email:string;
+    email: string;
     password: string;
     username: string;
 }
 
 export const RegisterScreen: FC = () => {
- const [isAuthenticating, setIsAuthenticating] = useState(false);
+    const [isAuthenticating, setIsAuthenticating] = useState(false);
 
- const signupHandler = async({email, password, username}:RegisterCredentials) => {
-   setIsAuthenticating(true);
-     if(email && password){
-         registerUser(email, password, username, setIsAuthenticating)
-             .then(()=>console.log('Profile created'))
-             .catch(()=>console.log('Profile creation failed'))
-     }
- };
+    const signupHandler = async ({email, password, username}: RegisterCredentials) => {
+        setIsAuthenticating(true);
+        if (email && password && username) {
+            registerUser({email, password, username, isAuthenticatingCb: setIsAuthenticating})
+                .then(() => console.log('Profile created'))
+                .catch(() => console.log('Profile creation failed'));
+        }
+    };
 
- if(isAuthenticating){
-  return <LoadingOverlay message={"Creating a user..."}/>
- }
+    if (isAuthenticating) {
+        return <LoadingOverlay message={"Creating a user..."}/>;
+    }
 
- return(<View style={styles.RegisterScreen}>
-  <Text style={sharedStyles.header1}>Register yourself</Text>
-  <RegisterForm onSubmit={signupHandler}/>
- </View>)
+    return (<View style={styles.RegisterScreen}>
+        <Text style={sharedStyles.header1}>Register yourself</Text>
+        <RegisterForm onSubmit={signupHandler}/>
+    </View>);
 };
 
 const styles = StyleSheet.create({
-     RegisterScreen:{
-      flex:1,
-      justifyContent:"center",
-      alignItems:"center",
-      backgroundColor:Colors.bgPrimary
-     },
-    buttonContainer:{
+    RegisterScreen: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: Colors.bgPrimary
+    },
+    buttonContainer: {
         width: "80%",
         borderRadius: 10,
-        overflow:"hidden",
+        overflow: "hidden",
         marginBottom: 10
     }
-})
+});

@@ -7,7 +7,8 @@ import {Colors} from "../constants/colors";
 export const Screen3: FC = () => {
     return (
         <View style={styles.screen}>
-            <Text style={sharedStyles.header1}>Screen3</Text>
+            <Text style={sharedStyles.header1}>Profile</Text>
+
         </View>
     );
 };

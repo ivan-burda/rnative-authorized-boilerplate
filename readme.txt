@@ -1,4 +1,5 @@
 ==========Todo==========
+Account creation - validate name uniqueness
 Change nickname
 Reset password
 Use federated-login authentication method (google)

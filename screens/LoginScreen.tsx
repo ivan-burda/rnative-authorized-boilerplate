@@ -14,8 +14,6 @@ const auth = initializeAuth(app, {
 });
 export const LoginScreen: FC = () => {
     const [isAuthenticating, setIsAuthenticating] = useState(false);
-    // const auth = getAuth(app);
-
 
     const loginHandler = async({email, password}:Credentials) => {
         setIsAuthenticating(true);

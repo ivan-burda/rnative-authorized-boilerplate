@@ -11,7 +11,7 @@ import {RegisterScreen} from "./screens/RegisterScreen";
 import {IconButton} from "./components/IconButton/IconButton";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {RootStackParamList} from "./types/types";
-import {logout} from "./firestore-api/firestore";
+import {logout} from "./firestore-api/authentication";
 
 import {app} from "./firebaseConfig";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
@@ -19,117 +19,117 @@ import {NavigationBottomTabs} from "./components/NavigationBottomTabs/Navigation
 
 const Stack = createNativeStackNavigator();
 
-function AuthenticationStack(){
-    const { navigate } = useNavigation<StackNavigationProp<RootStackParamList>>()
+function AuthenticationStack() {
+    const {navigate} = useNavigation<StackNavigationProp<RootStackParamList>>();
 
-    return(<Stack.Navigator
+    return (<Stack.Navigator
         screenOptions={{
             // headerShown:false,
-            headerStyle: { backgroundColor: Colors.bgPrimary },
+            headerStyle: {backgroundColor: Colors.bgPrimary},
             headerTintColor: 'fff',
-            contentStyle: { backgroundColor: Colors.primary100 },
+            contentStyle: {backgroundColor: Colors.primary100},
         }}>
-    <Stack.Screen name="Login" component={LoginScreen}         options={( ) => ({
-        title: "",
-        headerRight: ({ tintColor }) => (
-            <Button color={Colors.primary500} title="Register" onPress={() => navigate('Register')}/>
+        <Stack.Screen name="Login" component={LoginScreen} options={() => ({
+            title: "",
+            headerRight: ({tintColor}) => (
+                <Button color={Colors.primary500} title="Register" onPress={() => navigate('Register')}/>
 
-        ),
-    })}
-    />
-    <Stack.Screen name="Register" component={RegisterScreen} options={( ) => ({
-        title: "",
-        headerLeft: ({ tintColor }) => (
-            <Button color={Colors.primary500} title="Login" onPress={() => navigate('Login')}/>
+            ),
+        })}
+        />
+        <Stack.Screen name="Register" component={RegisterScreen} options={() => ({
+            title: "",
+            headerLeft: ({tintColor}) => (
+                <Button color={Colors.primary500} title="Login" onPress={() => navigate('Login')}/>
 
-        ),
-    })}
-    />
-  </Stack.Navigator>)
+            ),
+        })}
+        />
+    </Stack.Navigator>);
 }
 
 function AuthenticatedStack() {
-    return(<Stack.Navigator
+    return (<Stack.Navigator
         screenOptions={{
-            headerStyle: { backgroundColor: Colors.bgPrimary },
-            contentStyle: { backgroundColor: Colors.primary100 },
+            headerStyle: {backgroundColor: Colors.bgPrimary},
+            contentStyle: {backgroundColor: Colors.primary100},
         }}
     >
-    <Stack.Screen
-        name="protectedScreen"
-        component={NavigationBottomTabs}
-        options={( ) => ({
-            headerShown:false,
-            headerTintColor:Colors.primary500,
-          title: 'Feelings',
-          headerRight: ({ tintColor }) => (
-              <IconButton
-                  icon="power-outline"
-                  size={24}
-                  color={tintColor}
-                  label="Logout"
-                  onPress={logout}
-              />
-          ),
-        })}
+        <Stack.Screen
+            name="protectedScreen"
+            component={NavigationBottomTabs}
+            options={() => ({
+                headerShown: false,
+                headerTintColor: Colors.primary500,
+                title: 'Feelings',
+                headerRight: ({tintColor}) => (
+                    <IconButton
+                        icon="power-outline"
+                        size={24}
+                        color={tintColor}
+                        label="Logout"
+                        onPress={logout}
+                    />
+                ),
+            })}
 
-    />
-  </Stack.Navigator>)
+        />
+    </Stack.Navigator>);
 }
 
-function Navigation(){
-  const authContext = useContext(AuthContext)
-  return <NavigationContainer>
-    {!authContext?.isAuthenticated && <AuthenticationStack/>}
-    {authContext?.isAuthenticated && <AuthenticatedStack/>}
-  </NavigationContainer>
+function Navigation() {
+    const authContext = useContext(AuthContext);
+    return <NavigationContainer>
+        {!authContext?.isAuthenticated && <AuthenticationStack/>}
+        {authContext?.isAuthenticated && <AuthenticatedStack/>}
+    </NavigationContainer>;
 }
 
-const Root:FC = () => {
+const Root: FC = () => {
     const [isAuthOK, setIsAuthOK] = useState(false);
     const auth = getAuth(app);
-    const onAuthStateChangedHandler = (user:unknown) => {
-        if(user){
+    const onAuthStateChangedHandler = (user: unknown) => {
+        if (user) {
             // console.log(user);
             // console.log('user ok');
-            setIsAuthOK(true)
-        }else{
+            setIsAuthOK(true);
+        } else {
             // console.log('user nok');
-            setIsAuthOK(false)
+            setIsAuthOK(false);
         }
     };
 
-    useEffect(()=>{
-        return onAuthStateChanged(auth,onAuthStateChangedHandler);
-    },[])
+    useEffect(() => {
+        return onAuthStateChanged(auth, onAuthStateChangedHandler);
+    }, []);
 
-  const onLayoutRootView = useCallback(async()=>{
-    if(isAuthOK){
-      await SplashScreen.hideAsync()
-    }
-      if(!isAuthOK){
-          return null;
-      }
-  },[isAuthOK])
+    const onLayoutRootView = useCallback(async () => {
+        if (isAuthOK) {
+            await SplashScreen.hideAsync();
+        }
+        if (!isAuthOK) {
+            return null;
+        }
+    }, [isAuthOK]);
 
-  return(<View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-    <Navigation/>
-  </View>)
+    return (<View style={{flex: 1}} onLayout={onLayoutRootView}>
+        <Navigation/>
+    </View>);
 };
 
 export default function App() {
-  return (
-   <>
-   <StatusBar style="dark"/>
-     <AuthContextProvider>
-       <Root/>
-     </AuthContextProvider>
-   </>
-  );
+    return (
+        <>
+            <StatusBar style="dark"/>
+            <AuthContextProvider>
+                <Root/>
+            </AuthContextProvider>
+        </>
+    );
 }
 
 const styles = StyleSheet.create({
-    navigationButton:{
+    navigationButton: {
         color: Colors.primary500
     }
-})
+});

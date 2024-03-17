@@ -6,7 +6,7 @@ import {IconButton} from "../IconButton/IconButton";
 import {Screen1} from "../../screens/Screen1";
 import {Screen3} from "../../screens/Screen3";
 import {Screen2} from "../../screens/Screen2";
-import {logout} from "../../firestore-api/firestore";
+import {logout} from "../../firestore-api/authentication";
 
 const BottomTabs = createBottomTabNavigator();
 
