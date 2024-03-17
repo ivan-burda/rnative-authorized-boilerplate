@@ -3,7 +3,6 @@ import {getAuth,createUserWithEmailAndPassword} from "firebase/auth";
 import {app} from "../firebaseConfig";
 import {Alert} from "react-native";
 
-
 export const registerUser  = async (email: string, password: string, username:string, cb:(isAuthenticating: boolean)=>void) => {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
@@ -19,8 +18,6 @@ export const registerUser  = async (email: string, password: string, username:st
             cb(false)
         })
 }
-
-
 
 export const createProfile = async (email:any, username:string) => {
     const db = getDatabase(app);

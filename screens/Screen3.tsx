@@ -1,6 +1,7 @@
 import {FC} from 'react';
 import {StyleSheet, Text, View} from "react-native";
 import {sharedStyles} from "../styles";
+import {Colors} from "../constants/colors";
 
 
 export const Screen3: FC = () => {
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent:"center",
         alignItems:"center",
-        backgroundColor:'azure'
+        backgroundColor:Colors.bgSecondary
 
     },
     buttonContainer:{

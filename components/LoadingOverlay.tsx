@@ -1,5 +1,6 @@
 import {FC} from 'react';
 import {ActivityIndicator, StyleSheet, Text, View} from "react-native";
+import {Colors} from "../constants/colors";
 
 interface Props {
     message: string;
@@ -17,10 +18,12 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent:"center",
         alignItems:"center",
-        padding: 32
+        padding: 32,
+        backgroundColor: Colors.bgSecondary
     },
     message:{
         fontSize: 16,
+        color: Colors.primary500,
         marginBottom:12
     }
 })

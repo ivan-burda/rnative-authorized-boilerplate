@@ -4,7 +4,7 @@ import {RegisterForm} from "./RegisterForm";
 import {sharedStyles} from "../styles";
 import {LoadingOverlay} from "../components/LoadingOverlay";
 import {Colors} from "../constants/colors";
-import {registerUser} from "../firestore-api/registration";
+import {registerUser} from "../firestore-api/firestore";
 
 export interface Credentials {
  email:string;

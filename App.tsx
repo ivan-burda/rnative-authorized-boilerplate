@@ -11,11 +11,11 @@ import {RegisterScreen} from "./screens/RegisterScreen";
 import {IconButton} from "./components/IconButton/IconButton";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {RootStackParamList} from "./types/types";
-import {RoutingScreen} from "./screens/RoutingScreen";
-import {logout} from "./firestore-api/registration";
+import {logout} from "./firestore-api/firestore";
 
 import {app} from "./firebaseConfig";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
+import {NavigationBottomTabs} from "./components/NavigationBottomTabs/NavigationBottomTabs";
 
 const Stack = createNativeStackNavigator();
 
@@ -48,8 +48,6 @@ function AuthenticationStack(){
   </Stack.Navigator>)
 }
 
-
-
 function AuthenticatedStack() {
     return(<Stack.Navigator
         screenOptions={{
@@ -59,7 +57,7 @@ function AuthenticatedStack() {
     >
     <Stack.Screen
         name="protectedScreen"
-        component={RoutingScreen}
+        component={NavigationBottomTabs}
         options={( ) => ({
             headerShown:false,
             headerTintColor:Colors.primary500,
@@ -114,8 +112,6 @@ const Root:FC = () => {
       }
   },[isAuthOK])
 
-
-
   return(<View style={{ flex: 1 }} onLayout={onLayoutRootView}>
     <Navigation/>
   </View>)
@@ -126,7 +122,6 @@ export default function App() {
    <>
    <StatusBar style="dark"/>
      <AuthContextProvider>
-
        <Root/>
      </AuthContextProvider>
    </>
