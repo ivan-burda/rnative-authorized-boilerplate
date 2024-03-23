@@ -1,13 +1,7 @@
 import {getDatabase, ref, set} from "firebase/database";
-import {
-    createUserWithEmailAndPassword,
-    getAuth,
-    deleteUser as deleteUserFirebase,
-    signInWithEmailAndPassword, initializeAuth, getReactNativePersistence
-} from "firebase/auth";
+import {createUserWithEmailAndPassword, getAuth, deleteUser as deleteUserFirebase} from "firebase/auth";
 import {app} from "../firebaseConfig";
 import {Alert} from "react-native";
-import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
 
 const auth = getAuth(app);
 const db = getDatabase(app);
@@ -42,20 +36,6 @@ const createProfile = async (email: any, username: string) => {
         })
         .catch(() => {
             console.log('Profile creation failed.');
-        });
-};
-
-
-export const loginUser = async (email: string, password: string) => {
-    const auth = initializeAuth(app, {
-        persistence: getReactNativePersistence(ReactNativeAsyncStorage)
-    });
-    signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-            return ('Login successful');
-        })
-        .catch(() => {
-            return ("Authentication failed");
         });
 };
 

@@ -2,9 +2,8 @@
 Account creation - validate name uniqueness
 Change nickname
 Reset password
-Delete account
-General function to CRUD data into the db
 Use federated-login authentication method (google)
+Delete account
 
 ==========Expo with Firebase==========
 https://docs.expo.dev/guides/using-firebase/

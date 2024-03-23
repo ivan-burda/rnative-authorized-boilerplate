@@ -5,46 +5,59 @@ import {sharedStyles} from "../styles";
 import {LoadingOverlay} from "../components/LoadingOverlay";
 import {Credentials} from "./RegisterScreen";
 import {Colors} from "../constants/colors";
-import {loginUser} from "../firestore-api/authentication";
-import {log} from "expo/build/devtools/logger";
+import {getAuth, signInWithEmailAndPassword,  initializeAuth,getReactNativePersistence} from "firebase/auth";
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 
-
+import {app} from "../firebaseConfig";
+const auth = initializeAuth(app, {
+    persistence: getReactNativePersistence(ReactNativeAsyncStorage)
+});
 export const LoginScreen: FC = () => {
     const [isAuthenticating, setIsAuthenticating] = useState(false);
 
-    const loginHandler = async ({email, password}: Credentials) => {
+    const loginHandler = async({email, password}:Credentials) => {
         setIsAuthenticating(true);
-        if (email && password) {
-            loginUser(email, password).then(r => log(r)).catch(e => log(e));
+        if(email && password){
+            try{
+                const response = await signInWithEmailAndPassword(auth,email,password);
+                if(response.user){
+                    console.log('Login successful');
+                }
+            }
+            catch(e){
+                Alert.alert("Authentication failed", "Cannot login. Please check credentials")
+            }
         }
+
         setIsAuthenticating(false);
+
     };
 
-    if (isAuthenticating) {
-        return <LoadingOverlay message={"Logging you in ..."}/>;
+    if(isAuthenticating){
+        return <LoadingOverlay message={"Logging you in ..."}/>
     }
 
-    return (<View style={styles.landingScreen}>
-        <Text style={sharedStyles.header1}>Feelings</Text>
-        <Image source={require('../assets/logo.jpg')} style={styles.logo}/>
-        <LoginForm onAuthenticate={loginHandler}/>
-    </View>);
+    return(<View style={styles.landingScreen}>
+            <Text style={sharedStyles.header1}>Feelings</Text>
+            <Image source={require('../assets/logo.jpg')} style={styles.logo}/>
+        <LoginForm onAuthenticate={loginHandler} />
+    </View>)
 };
 
 const styles = StyleSheet.create({
-    LoginScreen: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
+    LoginScreen:{
+        flex:1,
+        justifyContent:"center",
+        alignItems:"center"
     },
-    landingScreen: {
+    landingScreen:{
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: Colors.bgPrimary
+        justifyContent:"center",
+        alignItems:"center",
+        backgroundColor:Colors.bgPrimary
 
     },
-    logo: {
+    logo:{
         width: 120,
         height: 120,
         borderRadius: 100,
@@ -52,10 +65,10 @@ const styles = StyleSheet.create({
         borderWidth: 7.5,
         borderColor: 'seagreen',
     },
-    buttonContainer: {
+    buttonContainer:{
         width: "80%",
         borderRadius: 10,
-        overflow: "hidden",
+        overflow:"hidden",
         marginBottom: 10
     }
-});
+})
