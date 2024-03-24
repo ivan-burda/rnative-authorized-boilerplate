@@ -4,7 +4,7 @@ import {Ionicons} from '@expo/vector-icons';
 import {Colors} from "../../constants/colors";
 import {IconButton} from "../IconButton/IconButton";
 import {Screen1} from "../../screens/Screen1";
-import {Screen3} from "../../screens/Screen3";
+import {Settings} from "../../screens/Settings";
 import {Screen2} from "../../screens/Screen2";
 
 import {logout} from "../../firestore-api/auth/logout";
@@ -12,7 +12,7 @@ import {logout} from "../../firestore-api/auth/logout";
 const BottomTabs = createBottomTabNavigator();
 
 export const NavigationBottomTabs = () => (
-    <BottomTabs.Navigator initialRouteName={"screen1"} screenOptions={({navigation}) => ({
+    <BottomTabs.Navigator screenOptions={({route}) => ({
         headerStyle: {backgroundColor: Colors.bgPrimary},
         headerTintColor: 'green',
         contentStyle: {backgroundColor: Colors.primary100},
@@ -50,11 +50,11 @@ export const NavigationBottomTabs = () => (
             }}
         />
         <BottomTabs.Screen
-            name="screen3"
-            component={Screen3}
+            name="settings"
+            component={Settings}
             options={{
-                title: "Screen3",
-                tabBarLabel: "Screen3",
+                title: "Settings",
+                tabBarLabel: "Settings",
                 tabBarIcon: ({color, size}) => (
                     <Ionicons name="settings-outline" size={size} color={color}/>
                 ),
