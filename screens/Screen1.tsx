@@ -13,17 +13,17 @@ export const Screen1: FC = () => {
 };
 
 const styles = StyleSheet.create({
-    screen:{
+    screen: {
         flex: 1,
-        justifyContent:"center",
-        alignItems:"center",
-        backgroundColor:Colors.bgSecondary
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: Colors.bgSecondary
 
     },
-    buttonContainer:{
+    buttonContainer: {
         width: "80%",
         borderRadius: 10,
-        overflow:"hidden",
+        overflow: "hidden",
         marginBottom: 10
     }
-})
+});

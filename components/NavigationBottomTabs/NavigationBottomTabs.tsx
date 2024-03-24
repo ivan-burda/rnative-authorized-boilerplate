@@ -11,9 +11,8 @@ import {logout} from "../../firestore-api/auth/logout";
 
 const BottomTabs = createBottomTabNavigator();
 
-
 export const NavigationBottomTabs = () => (
-    <BottomTabs.Navigator screenOptions={({navigation}) => ({
+    <BottomTabs.Navigator initialRouteName={"screen1"} screenOptions={({navigation}) => ({
         headerStyle: {backgroundColor: Colors.bgPrimary},
         headerTintColor: 'green',
         contentStyle: {backgroundColor: Colors.primary100},
