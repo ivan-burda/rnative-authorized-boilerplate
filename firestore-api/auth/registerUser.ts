@@ -1,10 +1,7 @@
-import {getDatabase, ref, set} from "firebase/database";
-import {createUserWithEmailAndPassword, getAuth, deleteUser as deleteUserFirebase} from "firebase/auth";
-import {app} from "../firebaseConfig";
+import {createUserWithEmailAndPassword, getAuth} from "firebase/auth";
 import {Alert} from "react-native";
-
-const auth = getAuth(app);
-const db = getDatabase(app);
+import {getDatabase, ref, set} from "firebase/database";
+import {app} from "../../firebaseConfig";
 
 interface RegisterUser {
     email: string;
@@ -12,6 +9,9 @@ interface RegisterUser {
     username: string;
     isAuthenticatingCb: (isAuthenticating: boolean) => void;
 }
+
+const auth = getAuth(app);
+const db = getDatabase(app);
 
 export const registerUser = async ({email, password, username, isAuthenticatingCb}: RegisterUser) => {
     createUserWithEmailAndPassword(auth, email, password)
@@ -40,19 +40,4 @@ const createProfile = async (email: any, username: string, uid: string) => {
             console.log(e);
             console.log('Profile creation failed.');
         });
-};
-
-export const deleteUser = () => {
-    const user = auth.currentUser;
-    if (!user) {
-        return;
-    }
-    deleteUserFirebase(user)
-        .then(() => console.log('Registration successfully deleted'))
-        .catch(() => console.log('Deleting user failed'));
-
-};
-
-export const logout = async () => {
-    await auth.signOut();
 };

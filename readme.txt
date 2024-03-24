@@ -1,9 +1,8 @@
 ==========Todo==========
-Account creation - validate name uniqueness
-Change nickname
+Account creation
 Reset password
-Use federated-login authentication method (google)
 Delete account
+Use federated-login authentication method (google)
 
 ==========Expo with Firebase==========
 https://docs.expo.dev/guides/using-firebase/

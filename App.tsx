@@ -11,11 +11,11 @@ import {RegisterScreen} from "./screens/RegisterScreen";
 import {IconButton} from "./components/IconButton/IconButton";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {RootStackParamList} from "./types/types";
-import {logout} from "./firestore-api/authentication";
 
 import {app} from "./firebaseConfig";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import {NavigationBottomTabs} from "./components/NavigationBottomTabs/NavigationBottomTabs";
+import {logout} from "./firestore-api/auth/logout";
 
 const Stack = createNativeStackNavigator();
 

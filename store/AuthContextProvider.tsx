@@ -7,11 +7,11 @@ interface AuthContextType {
 }
 
 
-export const AuthContext = createContext<AuthContextType|undefined>({
+export const AuthContext = createContext<AuthContextType | undefined>({
     isAuthenticated: false,
 });
 
-interface Props{
+interface Props {
     children: ReactNode;
 }
 
@@ -19,23 +19,21 @@ export const AuthContextProvider: FC<Props> = ({children}) => {
     const [isAuthOK, setIsAuthOK] = useState(false);
     const auth = getAuth(app);
 
-    const onAuthStateChangedHandler = (user:unknown) => {
-        if(user){
-            setIsAuthOK(true)
-        }else{
-            setIsAuthOK(false)
+    const onAuthStateChangedHandler = (user: unknown) => {
+        if (user) {
+            setIsAuthOK(true);
+        } else {
+            setIsAuthOK(false);
         }
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         return onAuthStateChanged(auth, onAuthStateChangedHandler);
-    },[])
+    }, []);
 
     const value = {
         isAuthenticated: isAuthOK,
-        // authenticate,
-        // logout,
     };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-}
+};

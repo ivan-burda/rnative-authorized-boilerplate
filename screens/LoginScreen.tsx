@@ -1,33 +1,24 @@
 import {FC, useState} from 'react';
-import {Alert, Image, StyleSheet, Text, View} from "react-native";
+import {Image, StyleSheet, Text, View} from "react-native";
 import {LoginForm} from "./LoginForm";
 import {sharedStyles} from "../styles";
 import {LoadingOverlay} from "../components/LoadingOverlay";
 import {Credentials} from "./RegisterScreen";
 import {Colors} from "../constants/colors";
-import {getAuth, signInWithEmailAndPassword, initializeAuth, getReactNativePersistence} from "firebase/auth";
-import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 
-import {app} from "../firebaseConfig";
+import {log} from "expo/build/devtools/logger";
+import {loginUser} from "../firestore-api/auth/loginUser";
 
-const auth = initializeAuth(app, {
-    persistence: getReactNativePersistence(ReactNativeAsyncStorage)
-});
+
 export const LoginScreen: FC = () => {
     const [isAuthenticating, setIsAuthenticating] = useState(false);
 
     const loginHandler = async ({email, password}: Credentials) => {
         setIsAuthenticating(true);
         if (email && password) {
-            try {
-                const response = await signInWithEmailAndPassword(auth, email, password);
-                if (response.user) {
-                    console.log('Login successful');
-                }
-            } catch (e) {
-                console.log(e);
-                Alert.alert("Authentication failed", "Cannot login. Please check credentials");
-            }
+            loginUser({email, password})
+                .then(r => log(r))
+                .catch(e => log(e));
         }
 
         setIsAuthenticating(false);
