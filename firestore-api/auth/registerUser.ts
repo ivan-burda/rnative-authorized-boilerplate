@@ -2,6 +2,7 @@ import {createUserWithEmailAndPassword, getAuth, updateProfile} from "firebase/a
 import {Alert} from "react-native";
 import {getDatabase, ref, set} from "firebase/database";
 import {app} from "../../firebaseConfig";
+import {updateUser} from "./updateUser";
 
 interface RegisterUser {
     email: string;
@@ -17,16 +18,8 @@ export const registerUser = async ({email, password, username, isAuthenticatingC
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             if (userCredential.user) {
-                updateProfile(userCredential.user, {
-                    displayName: username,
-                    photoURL: "avatar2"
-                }).then(() => {
-                    // Profile updated successfully
-                }).catch((error) => {
-                    console.error("Error updating profile: ", error);
-                });
-                console.log(userCredential.user);
-                createProfile(email, username, userCredential.user.uid);
+                // updateUser(userCredential.user, {displayName: username, avatarName: 'avatar1'});
+                createProfile(email, username, userCredential.user.uid, 'avatar1');
             }
         })
         .catch((error) => {
@@ -36,10 +29,11 @@ export const registerUser = async ({email, password, username, isAuthenticatingC
         });
 };
 
-const createProfile = async (email: any, username: string, uid: string) => {
+const createProfile = async (email: any, username: string, uid: string, avatar: string) => {
     set(ref(db, 'users/' + uid), {
         username: username,
         email: email,
+        avatar: avatar
     })
         .then(() => {
             console.log('Profile created.');

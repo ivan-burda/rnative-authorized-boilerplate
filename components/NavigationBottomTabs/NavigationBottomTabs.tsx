@@ -14,8 +14,10 @@ const BottomTabs = createBottomTabNavigator();
 export const NavigationBottomTabs = () => (
     <BottomTabs.Navigator screenOptions={({route}) => ({
         headerStyle: {backgroundColor: Colors.bgPrimary},
+        tabBarStyle: {backgroundColor: Colors.bgPrimary},
         headerTintColor: 'green',
-        contentStyle: {backgroundColor: Colors.primary100},
+        tabBarActiveTintColor: Colors.primary500,
+        tabBarInactiveTintColor: 'gray',
         headerRight: ({tintColor}) => (
             <IconButton
                 icon="power-outline"
