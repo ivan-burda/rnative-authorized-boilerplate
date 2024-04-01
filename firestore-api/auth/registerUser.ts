@@ -1,8 +1,7 @@
-import {createUserWithEmailAndPassword, getAuth, updateProfile} from "firebase/auth";
+import {createUserWithEmailAndPassword, getAuth} from "firebase/auth";
 import {Alert} from "react-native";
 import {getDatabase, ref, set} from "firebase/database";
 import {app} from "../../firebaseConfig";
-import {updateUser} from "./updateUser";
 
 interface RegisterUser {
     email: string;
