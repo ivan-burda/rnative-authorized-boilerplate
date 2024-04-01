@@ -1,17 +1,12 @@
 import {FC, useState} from 'react';
 import {Image, ImageProps, StyleSheet, Text, View} from "react-native";
-import {Colors} from "../constants/colors";
-import {getCurrentUser, getCurrentUserFull} from "../firestore-api/auth/getCurrentUser";
+import {Colors} from "../../constants/colors";
+import {getCurrentUserFull} from "../../firestore-api/auth/getCurrentUser";
+import {getDatabase, ref} from "firebase/database";
+import {avatar1, avatar2, avatar3, avatar4, avatar5} from "../../assets/images";
+import {ImageButton} from "../../components/ImageButton/ImageButton";
+import {User} from "firebase/auth";
 
-import avatar1 from "../assets/avatar1.png";
-import avatar2 from "../assets/avatar2.png";
-import avatar3 from "../assets/avatar3.png";
-import avatar4 from "../assets/avatar4.png";
-import avatar5 from "../assets/avatar5.png";
-import {ImageButton} from "../components/ImageButton/ImageButton";
-import {updateUser} from "../firestore-api/auth/updateUser";
-import {getAuth, onAuthStateChanged, User} from "firebase/auth";
-import {app} from "../firebaseConfig";
 
 const avatarMap: Record<string, { name: string, source: ImageProps }> = {
     avatar1: {name: 'carrots', source: avatar1},
@@ -23,22 +18,19 @@ const avatarMap: Record<string, { name: string, source: ImageProps }> = {
 
 const FALLBACK_AVATAR_NAME = 'avatar1';
 
+
+export interface UserUpdate {
+    photoURL: string;
+    displayName: string;
+}
+
 export const Settings: FC = () => {
     const [user, setUser] = useState<User | null>(null);
-    const auth = getAuth(app);
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            console.log(user);
-            setUser(user);
-        } else {
-            console.log('null');
-            return null;
-        }
-    });
 
-    if (!user || !user) {
-        return null;
-    }
+    const currentUser = getCurrentUserFull();
+    const dbRef = ref(getDatabase());
+
+
     return (
         <View style={styles.screen}>
             <View style={styles.userDetailsContainer}>
@@ -52,32 +44,32 @@ export const Settings: FC = () => {
                 </View>
             </View>
             <View style={styles.userDetailsContainer}>
-                <ImageButton imageSource={avatarMap['avatar1'].source}
-                             onPress={() => updateUser(user, {
-                                 displayName: user?.displayName ?? '',
-                                 avatarName: 'avatar1'
-                             })}/>
-                <ImageButton imageSource={avatarMap['avatar2'].source}
-                             onPress={() => updateUser(user, {
-                                 displayName: user?.displayName ?? '',
-                                 avatarName: 'avatar2'
-                             })}/>
-                <ImageButton imageSource={avatarMap['avatar3'].source}
-                             onPress={() => updateUser(user, {
-                                 displayName: user?.displayName ?? '',
-                                 avatarName: 'avatar3'
-                             })}/>
-                <ImageButton
-                    imageSource={avatarMap['avatar4'].source}
-                    onPress={() => updateUser(user, {
-                        displayName: user?.displayName ?? '',
-                        avatarName: 'avatar4'
-                    })}/>
-                <ImageButton imageSource={avatarMap['avatar5'].source}
-                             onPress={() => updateUser(user, {
-                                 displayName: user?.displayName ?? '',
-                                 avatarName: 'avatar5'
-                             })}/>
+                {/*<ImageButton imageSource={avatarMap['avatar1'].source}*/}
+                {/*             onPress={() => updateUser(user, {*/}
+                {/*                 displayName: user?.displayName ?? '',*/}
+                {/*                 avatarName: 'avatar1'*/}
+                {/*             })}/>*/}
+                {/*<ImageButton imageSource={avatarMap['avatar2'].source}*/}
+                {/*             onPress={() => updateUser(user, {*/}
+                {/*                 displayName: user?.displayName ?? '',*/}
+                {/*                 avatarName: 'avatar2'*/}
+                {/*             })}/>*/}
+                {/*<ImageButton imageSource={avatarMap['avatar3'].source}*/}
+                {/*             onPress={() => updateUser(user, {*/}
+                {/*                 displayName: user?.displayName ?? '',*/}
+                {/*                 avatarName: 'avatar3'*/}
+                {/*             })}/>*/}
+                {/*<ImageButton*/}
+                {/*    imageSource={avatarMap['avatar4'].source}*/}
+                {/*    onPress={() => updateUser(user, {*/}
+                {/*        displayName: user?.displayName ?? '',*/}
+                {/*        avatarName: 'avatar4'*/}
+                {/*    })}/>*/}
+                {/*<ImageButton imageSource={avatarMap['avatar5'].source}*/}
+                {/*             onPress={() => updateUser(user, {*/}
+                {/*                 displayName: user?.displayName ?? '',*/}
+                {/*                 avatarName: 'avatar5'*/}
+                {/*             })}/>*/}
             </View>
         </View>
     );

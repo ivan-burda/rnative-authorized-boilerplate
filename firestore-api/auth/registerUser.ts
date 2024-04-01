@@ -31,8 +31,8 @@ export const registerUser = async ({email, password, username, isAuthenticatingC
 
 const createProfile = async (email: any, username: string, uid: string, avatar: string) => {
     set(ref(db, 'users/' + uid), {
-        username: username,
         email: email,
+        username: username,
         avatar: avatar
     })
         .then(() => {

@@ -4,7 +4,7 @@ import {Ionicons} from '@expo/vector-icons';
 import {Colors} from "../../constants/colors";
 import {IconButton} from "../IconButton/IconButton";
 import {Screen1} from "../../screens/Screen1";
-import {Settings} from "../../screens/Settings";
+import {Settings} from "../../screens/Settings/Settings";
 import {Screen2} from "../../screens/Screen2";
 
 import {logout} from "../../firestore-api/auth/logout";
