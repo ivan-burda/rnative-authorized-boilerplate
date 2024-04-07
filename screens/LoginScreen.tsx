@@ -5,24 +5,17 @@ import {sharedStyles} from "../styles";
 import {LoadingOverlay} from "../components/LoadingOverlay";
 import {Credentials} from "./RegisterScreen";
 import {Colors} from "../constants/colors";
-
-import {log} from "expo/build/devtools/logger";
+import {useLogin} from "../firestore-api/auth/useLogin";
 import {loginUser} from "../firestore-api/auth/loginUser";
 
 
 export const LoginScreen: FC = () => {
+    const {loginUser, loading, error} = useLogin();
     const [isAuthenticating, setIsAuthenticating] = useState(false);
 
-    const loginHandler = async ({email, password}: Credentials) => {
-        setIsAuthenticating(true);
-        if (email && password) {
-            loginUser({email, password})
-                .then(r => log(r))
-                .catch(e => log(e));
-        }
 
-        setIsAuthenticating(false);
-
+    const loginHandler = ({email, password}: Credentials) => {
+        loginUser({email, password});
     };
 
     if (isAuthenticating) {
