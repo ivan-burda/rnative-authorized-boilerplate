@@ -17,7 +17,6 @@ export const registerUser = async ({email, password, username, isAuthenticatingC
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             if (userCredential.user) {
-                // updateUser(userCredential.user, {displayName: username, avatarName: 'avatar1'});
                 createProfile(email, username, userCredential.user.uid, 'avatar1');
             }
         })

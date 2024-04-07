@@ -1,75 +1,64 @@
-import {FC, useState} from 'react';
+import {FC} from 'react';
 import {Image, ImageProps, StyleSheet, Text, View} from "react-native";
 import {Colors} from "../../constants/colors";
-import {getCurrentUserFull} from "../../firestore-api/auth/getCurrentUser";
-import {getDatabase, ref} from "firebase/database";
+import {getCurrentUserId} from "../../firestore-api/auth/getCurrentUser";
 import {avatar1, avatar2, avatar3, avatar4, avatar5} from "../../assets/images";
+import useUserData from "../../firestore-api/useSettingsData";
 import {ImageButton} from "../../components/ImageButton/ImageButton";
-import {User} from "firebase/auth";
+import {useUpdateSettings} from "../../firestore-api/useUpdateSettings";
 
 
 const avatarMap: Record<string, { name: string, source: ImageProps }> = {
     avatar1: {name: 'carrots', source: avatar1},
     avatar2: {name: 'giraffe', source: avatar2},
     avatar3: {name: 'fish', source: avatar3},
-    avatar5: {name: 'poppy', source: avatar5},
     avatar4: {name: 'tulip', source: avatar4},
+    avatar5: {name: 'poppy', source: avatar5},
 };
 
 const FALLBACK_AVATAR_NAME = 'avatar1';
 
 
-export interface UserUpdate {
-    photoURL: string;
-    displayName: string;
+export interface UserDetails {
+    avatar: string;
+    email: string;
+    username: string;
 }
 
+
 export const Settings: FC = () => {
-    const [user, setUser] = useState<User | null>(null);
+    const currentUserId = getCurrentUserId();
+    const {userData, loading} = useUserData(currentUserId);
+    const {updateUser} = useUpdateSettings(currentUserId);
 
-    const currentUser = getCurrentUserFull();
-    const dbRef = ref(getDatabase());
-
-
+    if (loading) {
+        return (<Text>Loading...</Text>);
+    }
+    
     return (
         <View style={styles.screen}>
             <View style={styles.userDetailsContainer}>
-                <Image source={avatarMap[user?.photoURL ?? FALLBACK_AVATAR_NAME].source}
+                <Image source={avatarMap[userData?.avatar ?? FALLBACK_AVATAR_NAME]?.source ?? avatar1}
                        style={styles.userImage}/>
                 <View style={styles.userDetailsTextPart}>
                     <View style={styles.userDetailTextItem}><Text
-                        style={styles.displayName}>{user?.displayName}</Text></View>
+                        style={styles.displayName}>{userData?.username}</Text></View>
                     <View style={styles.userDetailTextItem}><Text
-                        style={styles.displayName}>{user?.email}</Text></View>
+                        style={styles.displayName}>{userData?.email}</Text></View>
                 </View>
             </View>
             <View style={styles.userDetailsContainer}>
-                {/*<ImageButton imageSource={avatarMap['avatar1'].source}*/}
-                {/*             onPress={() => updateUser(user, {*/}
-                {/*                 displayName: user?.displayName ?? '',*/}
-                {/*                 avatarName: 'avatar1'*/}
-                {/*             })}/>*/}
-                {/*<ImageButton imageSource={avatarMap['avatar2'].source}*/}
-                {/*             onPress={() => updateUser(user, {*/}
-                {/*                 displayName: user?.displayName ?? '',*/}
-                {/*                 avatarName: 'avatar2'*/}
-                {/*             })}/>*/}
-                {/*<ImageButton imageSource={avatarMap['avatar3'].source}*/}
-                {/*             onPress={() => updateUser(user, {*/}
-                {/*                 displayName: user?.displayName ?? '',*/}
-                {/*                 avatarName: 'avatar3'*/}
-                {/*             })}/>*/}
-                {/*<ImageButton*/}
-                {/*    imageSource={avatarMap['avatar4'].source}*/}
-                {/*    onPress={() => updateUser(user, {*/}
-                {/*        displayName: user?.displayName ?? '',*/}
-                {/*        avatarName: 'avatar4'*/}
-                {/*    })}/>*/}
-                {/*<ImageButton imageSource={avatarMap['avatar5'].source}*/}
-                {/*             onPress={() => updateUser(user, {*/}
-                {/*                 displayName: user?.displayName ?? '',*/}
-                {/*                 avatarName: 'avatar5'*/}
-                {/*             })}/>*/}
+                <ImageButton imageSource={avatarMap['avatar1'].source}
+                             onPress={() => updateUser({avatar: 'avatar1'})}/>
+                <ImageButton imageSource={avatarMap['avatar2'].source}
+                             onPress={() => updateUser({avatar: 'avatar2'})}/>
+                <ImageButton imageSource={avatarMap['avatar3'].source}
+                             onPress={() => updateUser({avatar: 'avatar3'})}/>
+                <ImageButton
+                    imageSource={avatarMap['avatar4'].source}
+                    onPress={() => updateUser({avatar: 'avatar4'})}/>
+                <ImageButton imageSource={avatarMap['avatar5'].source}
+                             onPress={() => updateUser({avatar: 'avatar5'})}/>
             </View>
         </View>
     );

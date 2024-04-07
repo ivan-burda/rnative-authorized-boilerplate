@@ -1,10 +1,10 @@
-import {getAuth, onAuthStateChanged, User} from "firebase/auth";
+import {getAuth, User} from "firebase/auth";
 import {app} from "../../firebaseConfig";
 
-export type LoggedInUserDetails = Pick<User, 'displayName' | 'email' | 'photoURL' | 'uid'> | null
+export type LoggedInUserDetails = Pick<User, 'email' | 'uid'> | null
 
 
-export const getCurrentUserFull = (): User | null => {
+export const getCurrentUserId = (): string | null => {
     const auth = getAuth(app);
-    return auth.currentUser;
+    return auth.currentUser?.uid ?? null;
 };
