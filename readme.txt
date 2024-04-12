@@ -1,5 +1,4 @@
 ==========Todo==========
-Account creation
 Reset password
 Delete account
 Use federated-login authentication method (google)

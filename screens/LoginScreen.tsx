@@ -1,24 +1,21 @@
 import {FC, useState} from 'react';
-import {Image, StyleSheet, Text, View} from "react-native";
+import {Button, Image, StyleSheet, Text, View} from "react-native";
 import {LoginForm} from "./LoginForm";
 import {sharedStyles} from "../styles";
 import {LoadingOverlay} from "../components/LoadingOverlay";
 import {Credentials} from "./RegisterScreen";
 import {Colors} from "../constants/colors";
 import {useLogin} from "../firestore-api/auth/useLogin";
-import {loginUser} from "../firestore-api/auth/loginUser";
 
 
 export const LoginScreen: FC = () => {
-    const {loginUser, loading, error} = useLogin();
-    const [isAuthenticating, setIsAuthenticating] = useState(false);
-
+    const {loginUser, loading, passwordError} = useLogin();
 
     const loginHandler = ({email, password}: Credentials) => {
         loginUser({email, password});
     };
 
-    if (isAuthenticating) {
+    if (loading) {
         return <LoadingOverlay message={"Logging you in ..."}/>;
     }
 
@@ -26,6 +23,7 @@ export const LoginScreen: FC = () => {
         <Text style={sharedStyles.header1}>Feelings</Text>
         <Image source={require('../assets/logo.jpg')} style={styles.logo}/>
         <LoginForm onAuthenticate={loginHandler}/>
+        {passwordError && <Button style={styles.buttonContainer} title="Reset Password"/>}
     </View>);
 };
 
@@ -55,5 +53,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         overflow: "hidden",
         marginBottom: 10
+    },
+    errorButton: {
+        backgroundColor: 'tomato'
     }
 });
