@@ -6,6 +6,7 @@ import {LoadingOverlay} from "../components/LoadingOverlay";
 import {Credentials} from "./RegisterScreen";
 import {Colors} from "../constants/colors";
 import {useLogin} from "../firestore-api/auth/useLogin";
+import {ButtonVariant, ColoredButton} from "../components/ColoredButton";
 
 
 export const LoginScreen: FC = () => {
@@ -23,7 +24,7 @@ export const LoginScreen: FC = () => {
         <Text style={sharedStyles.header1}>Feelings</Text>
         <Image source={require('../assets/logo.jpg')} style={styles.logo}/>
         <LoginForm onAuthenticate={loginHandler}/>
-        {passwordError && <Button style={styles.buttonContainer} title="Reset Password"/>}
+        {passwordError && <ColoredButton variant="DANGER" title="Reset Password" onPress={() => console.log("Hey!")}/>}
     </View>);
 };
 

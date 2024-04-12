@@ -1,32 +1,46 @@
 import {FC} from "react";
-import {Pressable, View, Text, StyleSheet} from "react-native";
-import {Ionicons} from '@expo/vector-icons';
+import {Pressable, StyleSheet, Text, View} from "react-native";
 
 
-type ButtonVariant = "INFO" | "DANGER" | "WARNING";
+export type ButtonVariant = "INFO" | "DANGER" | "WARNING";
 
 interface Props {
-    label: string;
-    variant: string;
-    size: number;
+    title: string;
+    variant: ButtonVariant;
+    size?: number;
     onPress: () => void;
 }
 
-export const ColoredButton: FC<Props> = ({variant, label, size, onPress}) => (
-    <View style={styles.button}><Pressable style={styles.button} onPress={onPress}><Text
-        style={styles.text}>{label}</Text></Pressable></View>);
+const bgColorMap = {
+    "DANGER": {bgColor: 'tomato', textColor: 'white'},
+    "INFO": {bgColor: 'grey', textColor: 'black'},
+    "WARNING": {bgColor: 'yellow', textColor: 'black'}
+};
+
+export const ColoredButton: FC<Props> = ({title, variant, size, onPress}) => (
+    <View style={[styles.button, {backgroundColor: bgColorMap[variant].bgColor}]}><Pressable
+        style={styles.button}
+        onPress={onPress}><Text
+        style={[styles.text, {color: bgColorMap[variant].textColor}]}>{title}</Text></Pressable></View>);
 
 const styles = StyleSheet.create({
     button: {
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "row",
-        marginRight: 5
-
+        marginRight: 5,
+        paddingHorizontal: 10,
+        paddingVertical: 3,
+        borderRadius: 8
     },
     text: {
-        fontSize: 16,
+        fontSize: 12,
         marginRight: 3,
-        fontWeight: "bold"
-    }
+    },
+    buttonContainer: {
+        width: "80%",
+        borderRadius: 10,
+        overflow: "hidden",
+        marginBottom: 10
+    },
 });
