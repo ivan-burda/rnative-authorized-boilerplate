@@ -2,7 +2,7 @@ import {FC} from "react";
 import {Pressable, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 
 
-export type ButtonVariant = "INFO" | "DANGER" | "WARNING";
+export type ButtonVariant = "INFO" | "DANGER" | "WARNING" | "SUCCESS";
 
 interface Props {
     title: string;
@@ -14,7 +14,8 @@ interface Props {
 const bgColorMap = {
     "DANGER": {bgColor: 'tomato', textColor: 'white'},
     "INFO": {bgColor: 'grey', textColor: 'black'},
-    "WARNING": {bgColor: 'yellow', textColor: 'black'}
+    "WARNING": {bgColor: 'yellow', textColor: 'black'},
+    "SUCCESS": {bgColor: 'lime', textColor: 'black'}
 };
 
 export const ColoredButton: FC<Props> = ({title, variant, size, onPress}) => (

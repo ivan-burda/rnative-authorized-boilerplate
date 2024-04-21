@@ -7,25 +7,33 @@ import {Credentials} from "./RegisterScreen";
 import {Colors} from "../constants/colors";
 import {useLogin} from "../firestore-api/auth/useLogin";
 import {ColoredButton} from "../components/ColoredButton";
+import {useResetPassword} from "../firestore-api/auth/useResetPassword";
+import {Message} from "../components/Message/Message";
 
 
 export const LoginScreen: FC = () => {
-    const {loginUser, loading, passwordError} = useLogin();
+    const {loginUser, loading, passwordError, passwordErrorText, email, resetLoginError} = useLogin();
+    const {resetPassword, passResetError, passResetSuccess, passResetRequested} = useResetPassword();
 
-    const loginHandler = ({email, password}: Credentials) => {
-        loginUser({email, password});
-    };
 
     if (loading) {
         return <LoadingOverlay message={"Logging you in ..."}/>;
     }
 
     return (<View style={styles.landingScreen}>
-        <Text style={sharedStyles.header1}>Feelings</Text>
-        <Image source={require('../assets/logo.jpg')} style={styles.logo}/>
-        <LoginForm onAuthenticate={loginHandler}/>
-        {passwordError && <Text style={styles.errorText}>Entered credentials appear to be incorrect.</Text>}
-        {passwordError && <ColoredButton variant="DANGER" title="Reset password" onPress={() => console.log("Hey!")}/>}
+        <View style={styles.landingScreenTop}>
+            <Text style={sharedStyles.header1}>Feelings</Text>
+            <Image source={require('../assets/logo.jpg')} style={styles.logo}/>
+            <LoginForm onAuthenticate={({email, password}) => loginUser({email, password})}/>
+        </View>
+        <View>
+            {passwordError && <Message messageType={"DANGER"}
+                                       text={passwordErrorText}/>}
+            {passwordError &&
+                <ColoredButton variant="DANGER" title="Reset password"
+                               onPress={() => resetPassword(email, resetLoginError)}/>}
+            {passResetSuccess && <Message messageType={"SUCCESS"} text={`Check mailbox for more instructions.`}/>}
+        </View>
     </View>);
 };
 
@@ -37,10 +45,14 @@ const styles = StyleSheet.create({
     },
     landingScreen: {
         flex: 1,
-        justifyContent: "center",
+        justifyContent: "flex-start",
         alignItems: "center",
-        backgroundColor: Colors.bgPrimary
-
+        backgroundColor: Colors.bgPrimary,
+        paddingTop: 15,
+    },
+    landingScreenTop: {
+        justifyContent: "center",
+        alignItems: "center"
     },
     logo: {
         width: 120,
@@ -56,8 +68,4 @@ const styles = StyleSheet.create({
         overflow: "hidden",
         marginBottom: 10
     },
-    errorText: {
-        color: 'red',
-        lineHeight: 40
-    }
 });
