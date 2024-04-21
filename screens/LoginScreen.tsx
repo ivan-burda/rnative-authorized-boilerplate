@@ -3,7 +3,6 @@ import {Image, StyleSheet, Text, View} from "react-native";
 import {LoginForm} from "./LoginForm";
 import {sharedStyles} from "../styles";
 import {LoadingOverlay} from "../components/LoadingOverlay";
-import {Credentials} from "./RegisterScreen";
 import {Colors} from "../constants/colors";
 import {useLogin} from "../firestore-api/auth/useLogin";
 import {ColoredButton} from "../components/ColoredButton";
@@ -26,13 +25,13 @@ export const LoginScreen: FC = () => {
             <Image source={require('../assets/logo.jpg')} style={styles.logo}/>
             <LoginForm onAuthenticate={({email, password}) => loginUser({email, password})}/>
         </View>
-        <View>
+        <View style={styles.landingScreenBottom}>
             {passwordError && <Message messageType={"DANGER"}
                                        text={passwordErrorText}/>}
+            {passResetSuccess && <Message messageType={"SUCCESS"} text={`Check mailbox for more instructions.`}/>}
             {passwordError &&
                 <ColoredButton variant="DANGER" title="Reset password"
                                onPress={() => resetPassword(email, resetLoginError)}/>}
-            {passResetSuccess && <Message messageType={"SUCCESS"} text={`Check mailbox for more instructions.`}/>}
         </View>
     </View>);
 };
@@ -53,6 +52,9 @@ const styles = StyleSheet.create({
     landingScreenTop: {
         justifyContent: "center",
         alignItems: "center"
+    }, landingScreenBottom: {
+        justifyContent: "center",
+        alignItems: "center"
     },
     logo: {
         width: 120,
@@ -61,11 +63,5 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         borderWidth: 7.5,
         borderColor: 'seagreen',
-    },
-    buttonContainer: {
-        width: "80%",
-        borderRadius: 10,
-        overflow: "hidden",
-        marginBottom: 10
-    },
+    }
 });
