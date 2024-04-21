@@ -1,12 +1,8 @@
 import {useState} from "react";
 import {Credentials} from "../../screens/RegisterScreen";
 import {FirebaseError, signInWithEmailAndPassword} from "firebase/auth";
-import {loginAuth} from "./loginUser";
+import {loginAuth} from "./loginAuth";
 
-
-export enum LoginErrorCodes {
-    "INVALID_CREDENTIALS" = "INVALID_CREDENTIALS"
-}
 
 export const useLogin = () => {
     const [loading, setLoading] = useState(false);
@@ -20,7 +16,6 @@ export const useLogin = () => {
             await signInWithEmailAndPassword(loginAuth, email, password);
         } catch (e: FirebaseError) {
             if (e.code.includes("invalid-credential")) {
-                console.log(e.code);
                 setPasswordError("INVALID CREDENTIALS");
             }
         } finally {

@@ -1,11 +1,12 @@
 import {FC} from 'react';
 import {Image, ImageProps, StyleSheet, Text, View} from "react-native";
 import {Colors} from "../../constants/colors";
-import {getCurrentUserId} from "../../firestore-api/auth/getCurrentUser";
+
 import {avatar1, avatar2, avatar3, avatar4, avatar5} from "../../assets/images";
 import useUserData from "../../firestore-api/useSettingsData";
 import {ImageButton} from "../../components/ImageButton/ImageButton";
 import {useUpdateSettings} from "../../firestore-api/useUpdateSettings";
+import {getCurrentUserId} from "../../firestore-api/auth/getCurrentUserId";
 
 
 const avatarMap: Record<string, { name: string, source: ImageProps }> = {
@@ -34,7 +35,7 @@ export const Settings: FC = () => {
     if (loading) {
         return (<Text>Loading...</Text>);
     }
-    
+
     return (
         <View style={styles.screen}>
             <View style={styles.userDetailsContainer}>

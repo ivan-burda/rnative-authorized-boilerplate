@@ -1,12 +1,12 @@
-import {FC, useState} from 'react';
-import {Button, Image, StyleSheet, Text, View} from "react-native";
+import {FC} from 'react';
+import {Image, StyleSheet, Text, View} from "react-native";
 import {LoginForm} from "./LoginForm";
 import {sharedStyles} from "../styles";
 import {LoadingOverlay} from "../components/LoadingOverlay";
 import {Credentials} from "./RegisterScreen";
 import {Colors} from "../constants/colors";
 import {useLogin} from "../firestore-api/auth/useLogin";
-import {ButtonVariant, ColoredButton} from "../components/ColoredButton";
+import {ColoredButton} from "../components/ColoredButton";
 
 
 export const LoginScreen: FC = () => {

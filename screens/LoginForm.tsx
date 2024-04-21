@@ -7,60 +7,60 @@ import {Credentials} from "./RegisterScreen";
 import {sharedStyles} from "../styles";
 
 interface Props {
-    onAuthenticate: ({email, password}:Credentials)=>void
+    onAuthenticate: ({email, password}: Credentials) => void;
 }
 
-type InputFields = 'email'|'password'
+type InputFields = 'email' | 'password'
 
 export const LoginForm: FC<Props> = ({onAuthenticate}) => {
-const [email, setEmail] = useState('');
-const [emailValidity, setEmailValidity] = useState(true);
-const [password, setPassword] = useState('');
-const [passwordValidity, setPasswordValidity] = useState(true);
+    const [email, setEmail] = useState('');
+    const [emailValidity, setEmailValidity] = useState(true);
+    const [password, setPassword] = useState('');
+    const [passwordValidity, setPasswordValidity] = useState(true);
 
-    const inputChangedHandler = (inputIdentifier:InputFields, enteredValue:string) => {
-        if(inputIdentifier === 'email'){
-            setEmail(enteredValue)
+    const inputChangedHandler = (inputIdentifier: InputFields, enteredValue: string) => {
+        if (inputIdentifier === 'email') {
+            setEmail(enteredValue);
         }
-        if(inputIdentifier === 'password'){
-            setPassword(enteredValue)
+        if (inputIdentifier === 'password') {
+            setPassword(enteredValue);
         }
     };
 
     const submitHandler = () => {
-        const emailIsValid = isEmailValid(email) ;
+        const emailIsValid = isEmailValid(email);
         const passwordIsValid = isPasswordValid(password);
 
-        if(!emailIsValid ||!passwordIsValid){
+        if (!emailIsValid || !passwordIsValid) {
             setEmailValidity(emailIsValid);
             setPasswordValidity(passwordIsValid);
             return;
         }
         setEmailValidity(emailIsValid);
         setPasswordValidity(passwordIsValid);
-        onAuthenticate({email,password});
+        onAuthenticate({email, password});
     };
 
-   const isFormValid = emailValidity && passwordValidity;
+    const isFormValid = emailValidity && passwordValidity;
 
     return (
         <View>
             <InputField label={"Email"} textInputConfig={{
-                autoCapitalize:'none',
+                autoCapitalize: 'none',
                 keyboardType: "email-address",
-                onChangeText: (fieldValue:string) =>
+                onChangeText: (fieldValue: string) =>
                     inputChangedHandler("email", fieldValue),
                 value: email,
             }} invalid={emailValidity}/>
             <InputField label={"Password"} textInputConfig={{
-                autoCapitalize:'none',
+                autoCapitalize: 'none',
                 keyboardType: "default",
-                onChangeText: (fieldValue:string) =>
+                onChangeText: (fieldValue: string) =>
                     inputChangedHandler("password", fieldValue),
                 value: password,
-                secureTextEntry:false
+                secureTextEntry: false
             }} invalid={passwordValidity}/>
-            {!isFormValid&&(<Text style={sharedStyles.errorText}>Please, correct entered details.</Text>)}
+            {!isFormValid && (<Text style={sharedStyles.errorText}>Please, correct entered details.</Text>)}
             <Button title={"Confirm"} color="seagreen" onPress={submitHandler}/>
         </View>
     );

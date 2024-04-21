@@ -5,24 +5,24 @@ import {Colors} from "../../constants/colors";
 
 interface TextInputConfig {
     keyboardType: KeyboardType;
-    onChangeText: (fieldValue:string)=>void;
-    value:string;
-    secureTextEntry?:boolean;
+    onChangeText: (fieldValue: string) => void;
+    value: string;
+    secureTextEntry?: boolean;
     autoCapitalize?: TextInputProps['autoCapitalize'];
 }
 
 interface Props {
-    label:string;
-    textInputConfig:TextInputConfig
-    invalid:boolean;
+    label: string;
+    textInputConfig: TextInputConfig;
+    invalid: boolean;
 }
 
 export const InputField: FC<Props> = ({label, textInputConfig, invalid}) => {
-    let textInputStyles:any = [styles.inputField];
+    let textInputStyles: any = [styles.inputField];
 
-    if(!invalid){
-        textInputStyles.push(styles.invalidInputField)
-    }else{
+    if (!invalid) {
+        textInputStyles.push(styles.invalidInputField);
+    } else {
         textInputStyles = [styles.inputField];
     }
 
@@ -35,23 +35,24 @@ export const InputField: FC<Props> = ({label, textInputConfig, invalid}) => {
 };
 
 export const styles = StyleSheet.create({
-    label:{
+    label: {
         color: Colors.primary500,
-        fontWeight:"bold"
+        fontWeight: "bold"
     },
-    inputField:{
+    inputField: {
+        color: Colors.primaryText,
         width: 300,
         maxWidth: 300,
-        marginVertical:8,
-        paddingHorizontal:8,
-        paddingVertical:8,
-        fontSize:16,
+        marginVertical: 8,
+        paddingHorizontal: 8,
+        paddingVertical: 8,
+        fontSize: 16,
         borderRadius: 10,
         borderBottomColor: Colors.primary500,
         borderBottomWidth: 2,
         backgroundColor: Colors.bgPrimary,
     },
-    invalidInputField:{
+    invalidInputField: {
         borderBottomColor: Colors.danger,
     }
-})
+});
