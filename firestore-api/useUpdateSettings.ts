@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from 'react';
+import {useState} from 'react';
 import {UserDetails} from "../screens/Settings/Settings";
 
 

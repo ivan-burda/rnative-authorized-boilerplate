@@ -7,6 +7,10 @@ import useUserData from "../../firestore-api/useSettingsData";
 import {ImageButton} from "../../components/ImageButton/ImageButton";
 import {useUpdateSettings} from "../../firestore-api/useUpdateSettings";
 import {getCurrentUserId} from "../../firestore-api/auth/getCurrentUserId";
+import {ColoredButton} from "../../components/ColoredButton";
+import {useDeleteAccount} from "../../firestore-api/auth/useDeleteAccount";
+import {LoginForm} from "../LoginForm";
+import {useLogin} from "../../firestore-api/auth/useLogin";
 
 
 const avatarMap: Record<string, { name: string, source: ImageProps }> = {
@@ -31,6 +35,8 @@ export const Settings: FC = () => {
     const currentUserId = getCurrentUserId();
     const {userData, loading} = useUserData(currentUserId);
     const {updateUser} = useUpdateSettings(currentUserId);
+    const {deleteAccount, error} = useDeleteAccount();
+    const {loginUser, loading: loginLoading, passwordError, passwordErrorText, email, resetLoginError} = useLogin();
 
     if (loading) {
         return (<Text>Loading...</Text>);
@@ -60,6 +66,9 @@ export const Settings: FC = () => {
                     onPress={() => updateUser({avatar: 'avatar4'})}/>
                 <ImageButton imageSource={avatarMap['avatar5'].source}
                              onPress={() => updateUser({avatar: 'avatar5'})}/>
+            </View>
+            <View style={styles.userDetailsContainer}>
+                <ColoredButton variant="DANGER" title="Delete Account" onPress={deleteAccount}/>
             </View>
         </View>
     );

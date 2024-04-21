@@ -12,10 +12,10 @@ interface Props {
 }
 
 const bgColorMap = {
-    "DANGER": {bgColor: 'tomato', textColor: 'white'},
-    "INFO": {bgColor: 'grey', textColor: 'black'},
-    "WARNING": {bgColor: 'yellow', textColor: 'black'},
-    "SUCCESS": {bgColor: 'lime', textColor: 'black'}
+    "INFO": {bgColor: 'grey', textColor: 'white'},
+    "WARNING": {bgColor: 'gold', textColor: 'black'},
+    "DANGER": {bgColor: 'crimson', textColor: 'white'},
+    "SUCCESS": {bgColor: 'green', textColor: 'white'}
 };
 
 export const ColoredButton: FC<Props> = ({title, variant, size, onPress}) => (
@@ -29,18 +29,16 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "row",
-        marginRight: 5,
-        paddingHorizontal: 10,
-        paddingVertical: 3,
-        borderRadius: 8
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+        borderRadius: 5
     },
     text: {
-        fontSize: 12,
-        marginRight: 3,
+        fontSize: 16,
     },
     buttonContainer: {
-        borderRadius: 10,
         overflow: "hidden",
-        marginBottom: 10
+        marginHorizontal: 5,
+        marginVertical: 3
     },
 });

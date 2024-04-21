@@ -26,9 +26,8 @@ export const LoginScreen: FC = () => {
             <LoginForm onAuthenticate={({email, password}) => loginUser({email, password})}/>
         </View>
         <View style={styles.landingScreenBottom}>
-            {passwordError && <Message messageType={"DANGER"}
-                                       text={passwordErrorText}/>}
-            {passResetSuccess && <Message messageType={"SUCCESS"} text={`Check mailbox for more instructions.`}/>}
+            {passwordError && <Message messageType={"DANGER"} text={passwordErrorText}/>}
+            {passResetSuccess && <Message messageType={"SUCCESS"} text="Check mailbox for more instructions."/>}
             {passwordError &&
                 <ColoredButton variant="DANGER" title="Reset password"
                                onPress={() => resetPassword(email, resetLoginError)}/>}
@@ -52,7 +51,9 @@ const styles = StyleSheet.create({
     landingScreenTop: {
         justifyContent: "center",
         alignItems: "center"
-    }, landingScreenBottom: {
+    },
+    landingScreenBottom: {
+        width: "90%",
         justifyContent: "center",
         alignItems: "center"
     },

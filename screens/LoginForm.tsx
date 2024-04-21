@@ -1,5 +1,5 @@
 import {FC, useState} from 'react';
-import {Button, Text, View} from "react-native";
+import {Button, StyleSheet, Text, View} from "react-native";
 import {InputField} from "../components/InputField/InputField";
 import {isEmailValid} from "../utils/isEmailValid";
 import {isPasswordValid} from "../utils/isPasswordValid";
@@ -44,7 +44,7 @@ export const LoginForm: FC<Props> = ({onAuthenticate}) => {
     const isFormValid = emailValidity && passwordValidity;
 
     return (
-        <View>
+        <View style={styles.loginForm}>
             <InputField label={"Email"} textInputConfig={{
                 autoCapitalize: 'none',
                 keyboardType: "email-address",
@@ -65,3 +65,9 @@ export const LoginForm: FC<Props> = ({onAuthenticate}) => {
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    loginForm: {
+        marginBottom: 10
+    }
+});

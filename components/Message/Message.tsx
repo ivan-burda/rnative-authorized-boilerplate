@@ -33,9 +33,9 @@ export const Message: FC<Props> = ({messageType, text}) => {
 
 const styles = StyleSheet.create({
     messageContainer: {
-        width: "85%",
+        width: "100%",
         borderRadius: 5,
-        marginVertical: 10,
+        marginBottom: 8,
         paddingHorizontal: 6,
         paddingVertical: 3
     },
