@@ -29,15 +29,15 @@ const [passwordValidity, setPasswordValidity] = useState(true);
 
     const submitHandler = () => {
         const emailIsValid = isEmailValid(email) ;
-        const passWordIsValid = isPasswordValid(password);
+        const passwordIsValid = isPasswordValid(password);
 
-        if(!emailIsValid ||!passWordIsValid){
+        if(!emailIsValid ||!passwordIsValid){
             setEmailValidity(emailIsValid);
-            setPasswordValidity(passWordIsValid);
+            setPasswordValidity(passwordIsValid);
             return;
         }
         setEmailValidity(emailIsValid);
-        setPasswordValidity(passWordIsValid);
+        setPasswordValidity(passwordIsValid);
         onAuthenticate({email,password});
     };
 

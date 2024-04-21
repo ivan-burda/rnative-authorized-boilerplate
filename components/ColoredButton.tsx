@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {Pressable, StyleSheet, Text, View} from "react-native";
+import {Pressable, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 
 
 export type ButtonVariant = "INFO" | "DANGER" | "WARNING";
@@ -18,10 +18,10 @@ const bgColorMap = {
 };
 
 export const ColoredButton: FC<Props> = ({title, variant, size, onPress}) => (
-    <View style={[styles.button, {backgroundColor: bgColorMap[variant].bgColor}]}><Pressable
-        style={styles.button}
+    <TouchableOpacity
+        style={[styles.button, {backgroundColor: bgColorMap[variant].bgColor}]}
         onPress={onPress}><Text
-        style={[styles.text, {color: bgColorMap[variant].textColor}]}>{title}</Text></Pressable></View>);
+        style={[styles.text, {color: bgColorMap[variant].textColor}]}>{title}</Text></TouchableOpacity>);
 
 const styles = StyleSheet.create({
     button: {
@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
         marginRight: 3,
     },
     buttonContainer: {
-        width: "80%",
         borderRadius: 10,
         overflow: "hidden",
         marginBottom: 10

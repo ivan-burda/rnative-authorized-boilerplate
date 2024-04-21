@@ -24,7 +24,8 @@ export const LoginScreen: FC = () => {
         <Text style={sharedStyles.header1}>Feelings</Text>
         <Image source={require('../assets/logo.jpg')} style={styles.logo}/>
         <LoginForm onAuthenticate={loginHandler}/>
-        {passwordError && <ColoredButton variant="DANGER" title="Reset Password" onPress={() => console.log("Hey!")}/>}
+        {passwordError && <Text style={styles.errorText}>Entered credentials appear to be incorrect.</Text>}
+        {passwordError && <ColoredButton variant="DANGER" title="Reset password" onPress={() => console.log("Hey!")}/>}
     </View>);
 };
 
@@ -55,7 +56,8 @@ const styles = StyleSheet.create({
         overflow: "hidden",
         marginBottom: 10
     },
-    errorButton: {
-        backgroundColor: 'tomato'
+    errorText: {
+        color: 'red',
+        lineHeight: 40
     }
 });
