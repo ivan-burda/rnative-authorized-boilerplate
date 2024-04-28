@@ -1,6 +1,4 @@
 ==========Todo==========
-Reset password
-Delete account
 Use federated-login authentication method (google)
 
 ==========Expo with Firebase==========
