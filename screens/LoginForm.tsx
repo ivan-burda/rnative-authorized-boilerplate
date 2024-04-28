@@ -10,7 +10,7 @@ interface Props {
     onAuthenticate: ({email, password}: Credentials) => void;
 }
 
-type InputFields = 'email' | 'password'
+export type InputFields = 'email' | 'password'
 
 export const LoginForm: FC<Props> = ({onAuthenticate}) => {
     const [email, setEmail] = useState('');

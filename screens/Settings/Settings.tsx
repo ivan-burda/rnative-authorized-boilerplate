@@ -1,5 +1,5 @@
 import {FC} from 'react';
-import {Image, ImageProps, StyleSheet, Text, View} from "react-native";
+import {Button, Image, ImageProps, StyleSheet, Text, View} from "react-native";
 import {Colors} from "../../constants/colors";
 
 import {avatar1, avatar2, avatar3, avatar4, avatar5} from "../../assets/images";
@@ -11,6 +11,9 @@ import {ColoredButton} from "../../components/ColoredButton";
 import {useDeleteAccount} from "../../firestore-api/auth/useDeleteAccount";
 import {LoginForm} from "../LoginForm";
 import {useLogin} from "../../firestore-api/auth/useLogin";
+import {InputField} from "../../components/InputField/InputField";
+import {sharedStyles} from "../../styles";
+import {ConfirmDeletion} from "./ConfirmDeletion";
 
 
 const avatarMap: Record<string, { name: string, source: ImageProps }> = {
@@ -33,7 +36,7 @@ export interface UserDetails {
 
 export const Settings: FC = () => {
     const currentUserId = getCurrentUserId();
-    const {userData, loading} = useUserData(currentUserId);
+    const {userData, loading,} = useUserData(currentUserId);
     const {updateUser} = useUpdateSettings(currentUserId);
     const {deleteAccount, error} = useDeleteAccount();
     const {loginUser, loading: loginLoading, passwordError, passwordErrorText, email, resetLoginError} = useLogin();
@@ -68,7 +71,7 @@ export const Settings: FC = () => {
                              onPress={() => updateUser({avatar: 'avatar5'})}/>
             </View>
             <View style={styles.userDetailsContainer}>
-                <ColoredButton variant="DANGER" title="Delete Account" onPress={deleteAccount}/>
+                <ConfirmDeletion/>
             </View>
         </View>
     );

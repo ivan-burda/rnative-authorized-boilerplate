@@ -2,9 +2,10 @@ import {FC} from "react";
 import {Pressable, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 
 
-export type ButtonVariant = "INFO" | "DANGER" | "WARNING" | "SUCCESS";
+export type ButtonVariant = "INFO" | "DANGER" | "WARNING" | "SUCCESS" | "DISABLED";
 
 interface Props {
+    disabled?: boolean;
     title: string;
     variant: ButtonVariant;
     size?: number;
@@ -15,11 +16,13 @@ const bgColorMap = {
     "INFO": {bgColor: 'grey', textColor: 'white'},
     "WARNING": {bgColor: 'gold', textColor: 'black'},
     "DANGER": {bgColor: 'crimson', textColor: 'white'},
-    "SUCCESS": {bgColor: 'green', textColor: 'white'}
+    "SUCCESS": {bgColor: 'green', textColor: 'white'},
+    "DISABLED": {bgColor: 'grey', textColor: 'lightgrey'}
 };
 
-export const ColoredButton: FC<Props> = ({title, variant, size, onPress}) => (
+export const ColoredButton: FC<Props> = ({disabled = false, title, variant, size, onPress}) => (
     <TouchableOpacity
+        disabled={disabled}
         style={[styles.button, {backgroundColor: bgColorMap[variant].bgColor}]}
         onPress={onPress}><Text
         style={[styles.text, {color: bgColorMap[variant].textColor}]}>{title}</Text></TouchableOpacity>);

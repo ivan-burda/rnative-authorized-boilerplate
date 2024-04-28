@@ -3,9 +3,10 @@ import {Credentials} from "../../screens/RegisterScreen";
 import {FirebaseError, signInWithEmailAndPassword} from "firebase/auth";
 import {loginAuth} from "./loginAuth";
 import {ColoredButton} from "../../components/ColoredButton";
+import {getCurrentUserId} from "./getCurrentUserId";
 
 
-export const useLogin = () => {
+export const useLogin = (deleteRequest?: boolean) => {
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState<string | undefined>();
     const [passwordError, setPasswordError] = useState<string | null>(null);
@@ -26,6 +27,12 @@ export const useLogin = () => {
                 setPasswordError("TOO-MANY-REQUESTS");
                 setPasswordErrorText("Visit mailbox to finish password reset, and then re-try.");
             }
+
+            if (deleteRequest && e.code.includes("invalid-credential")) {
+                setPasswordError("INVALID PASSWORD");
+                setPasswordErrorText(`The password is incorrect`);
+            }
+
             if (e.code.includes("invalid-credential")) {
                 setPasswordError("INVALID CREDENTIALS");
                 setPasswordErrorText(`Wrong credentials. If the ${email} exists try resetting password.`);
