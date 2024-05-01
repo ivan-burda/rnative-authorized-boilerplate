@@ -1,5 +1,5 @@
 ==========Todo==========
-Use federated-login authentication method (google)
+Refactoring and cleanup
 
 ==========Expo with Firebase==========
 https://docs.expo.dev/guides/using-firebase/
