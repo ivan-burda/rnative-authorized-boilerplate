@@ -8,15 +8,16 @@ import {Message} from "../../components/Message/Message";
 import {getCurrentUserEmail} from "../../firestore-api/auth/getCurrentUserId";
 import {useDeleteAccount} from "../../firestore-api/auth/useDeleteAccount";
 import {FirebaseError} from "firebase/auth";
+import {useResetPassword} from "../../firestore-api/auth/useResetPassword";
 
 
 export const ConfirmDeletion: FC = () => {
-    const {deleteAccount} = useDeleteAccount();
+    const {deleteAccount, error} = useDeleteAccount();
     const {loginUser, email, passwordError, passwordErrorText} = useLogin();
     const currentEmail = getCurrentUserEmail();
     const [password, setPassword] = useState('');
     const [passwordValidity, setPasswordValidity] = useState(false);
-
+    const {resetPassword, passResetError, passResetSuccess, passResetRequested} = useResetPassword();
     const inputChangedHandler = (enteredValue: string) => {
         setPassword(enteredValue);
         if (isPasswordValid(enteredValue)) {
@@ -27,30 +28,33 @@ export const ConfirmDeletion: FC = () => {
     };
 
     const submitHandler = async () => {
-        if (!passwordValidity || !currentEmail) {
+        if (!currentEmail) {
             return;
         }
 
         try {
             await loginUser({email: currentEmail, password});
-            await deleteAccount();
-
+            deleteAccount();
         } catch (e: FirebaseError) {
             console.log(e);
         }
     };
     return (
         <View>
-            <PasswordInputField textInputConfig={{
+            {error && <PasswordInputField textInputConfig={{
                 autoCapitalize: 'none',
                 keyboardType: "default",
                 onChangeText: (fieldValue: string) =>
                     inputChangedHandler(fieldValue),
                 value: password,
                 secureTextEntry: false
-            }} invalid={false}/>
+            }} invalid={false}/>}
             {passwordError && <Message messageType={"DANGER"} text={passwordErrorText}/>}
-            <ColoredButton disabled={!passwordValidity} variant={passwordValidity ? "DANGER" : "DISABLED"}
+            {passResetSuccess && <Message messageType={"SUCCESS"} text="Check mailbox for more instructions."/>}
+            {passwordError &&
+                <ColoredButton variant="DANGER" title="Reset password"
+                               onPress={() => resetPassword(email, resetLoginError)}/>}
+            <ColoredButton variant={"DANGER"}
                            title="Delete Account"
                            onPress={submitHandler}/>
         </View>

@@ -12,10 +12,7 @@ export const useResetPassword = () => {
         try {
             await sendPasswordResetEmail(auth, email);
             setPassResetSuccess(true);
-            // setTimeout(() => {
-            //     setPassResetSuccess(false);
-            //     resetLoginError();
-            // }, 5000);
+
         } catch (error: FirebaseError) {
             console.log(error);
             setPassResetSuccess(false);

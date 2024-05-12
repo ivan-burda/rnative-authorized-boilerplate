@@ -28,18 +28,18 @@ export const useDeleteAccount = () => {
             }, error
         };
     }
-
-
     const deleteAccount = async () => {
         try {
             await deleteUser(user);
             await remove(ref(db, 'users/' + user.uid));
             console.log('User deleted');
         } catch (error: FirebaseError) {
-            console.log(error);
+            console.log('Error: deleteAccount')
+            console.log(error.code);
             setError(error.code);
         }
     };
+
 
     return {deleteAccount, error};
 
