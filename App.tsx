@@ -2,6 +2,8 @@ import {StatusBar} from 'expo-status-bar';
 import {Button, View} from 'react-native';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import {useReactNavigationDevTools} from '@dev-plugins/react-navigation';
+import {useNavigationContainerRef, Slot} from 'expo-router';
 import {Colors} from "./constants/colors";
 import {FC, useCallback, useState} from "react";
 import * as SplashScreen from "expo-splash-screen";
@@ -15,6 +17,7 @@ import {getAuth, onAuthStateChanged} from "firebase/auth";
 import {NavigationBottomTabs} from "./components/NavigationBottomTabs/NavigationBottomTabs";
 
 const Stack = createNativeStackNavigator();
+
 
 function AuthenticationStack() {
     const {navigate} = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -90,6 +93,8 @@ const Root: FC = () => {
 };
 
 export default function App() {
+    const navigationRef = useNavigationContainerRef();
+    useReactNavigationDevTools(navigationRef);
     return (
         <>
             <StatusBar style="dark"/>

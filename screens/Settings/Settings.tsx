@@ -1,5 +1,5 @@
 import {FC} from 'react';
-import {Button, Image, ImageProps, StyleSheet, Text, View} from "react-native";
+import {Image, ImageProps, StyleSheet, Text, View} from "react-native";
 import {Colors} from "../../constants/colors";
 
 import {avatar1, avatar2, avatar3, avatar4, avatar5} from "../../assets/images";
@@ -7,12 +7,6 @@ import useUserData from "../../firestore-api/useSettingsData";
 import {ImageButton} from "../../components/ImageButton/ImageButton";
 import {useUpdateSettings} from "../../firestore-api/useUpdateSettings";
 import {getCurrentUserId} from "../../firestore-api/auth/getCurrentUserId";
-import {ColoredButton} from "../../components/ColoredButton";
-import {useDeleteAccount} from "../../firestore-api/auth/useDeleteAccount";
-import {LoginForm} from "../LoginForm";
-import {useLogin} from "../../firestore-api/auth/useLogin";
-import {InputField} from "../../components/InputField/InputField";
-import {sharedStyles} from "../../styles";
 import {ConfirmDeletion} from "./ConfirmDeletion";
 
 
@@ -38,8 +32,6 @@ export const Settings: FC = () => {
     const currentUserId = getCurrentUserId();
     const {userData, loading,} = useUserData(currentUserId);
     const {updateUser} = useUpdateSettings(currentUserId);
-    const {deleteAccount, error} = useDeleteAccount();
-    const {loginUser, loading: loginLoading, passwordError, passwordErrorText, email, resetLoginError} = useLogin();
 
     if (loading) {
         return (<Text>Loading...</Text>);
