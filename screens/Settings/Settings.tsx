@@ -8,6 +8,7 @@ import {ImageButton} from "../../components/ImageButton/ImageButton";
 import {useUpdateSettings} from "../../firestore-api/useUpdateSettings";
 import {getCurrentUserId} from "../../firestore-api/auth/getCurrentUserId";
 import {ConfirmDeletion} from "./ConfirmDeletion";
+import {LoadingOverlay} from "../../components/LoadingOverlay";
 
 
 const avatarMap: Record<string, { name: string, source: ImageProps }> = {
@@ -34,7 +35,7 @@ export const Settings: FC = () => {
     const {updateUser} = useUpdateSettings(currentUserId);
 
     if (loading) {
-        return (<Text>Loading...</Text>);
+        return (<LoadingOverlay message="Loading..."/>);
     }
 
     return (

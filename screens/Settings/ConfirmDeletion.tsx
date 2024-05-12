@@ -53,7 +53,7 @@ export const ConfirmDeletion: FC = () => {
             {passResetSuccess && <Message messageType={"SUCCESS"} text="Check mailbox for more instructions."/>}
             {passwordError &&
                 <ColoredButton variant="DANGER" title="Reset password"
-                               onPress={() => resetPassword(email, resetLoginError)}/>}
+                               onPress={() => resetPassword(email)}/>}
             <ColoredButton variant={"DANGER"}
                            title="Delete Account"
                            onPress={submitHandler}/>

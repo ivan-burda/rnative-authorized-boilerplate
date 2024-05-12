@@ -2,13 +2,13 @@ import {StyleSheet} from "react-native";
 import {Colors} from '../constants/colors';
 
 export const sharedStyles = StyleSheet.create({
-    header1:{
+    header1: {
         fontSize: 42,
         marginBottom: 10,
-        color: Colors.primary500
+        color: Colors.primary500,
     },
-    errorText:{
+    errorText: {
         color: 'red',
-        textAlign:"center"
+        textAlign: "center"
     }
 })

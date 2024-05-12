@@ -35,18 +35,20 @@ export const RegisterScreen: FC = () => {
     }
 
     return (<View style={styles.RegisterScreen}>
-        <Text style={sharedStyles.header1}>Register yourself</Text>
+        <Text style={[sharedStyles.header1]}>Register</Text>
         <RegisterForm onSubmit={signupHandler}/>
     </View>);
 };
 
 const styles = StyleSheet.create({
     RegisterScreen: {
+        paddingTop: 15,
         flex: 1,
-        justifyContent: "center",
+        justifyContent: "flex-start",
         alignItems: "center",
         backgroundColor: Colors.bgPrimary,
-        color: Colors.primaryText
+        color: Colors.primaryText,
+
     },
     buttonContainer: {
         width: "80%",

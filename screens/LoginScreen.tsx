@@ -12,7 +12,7 @@ import {Message} from "../components/Message/Message";
 
 export const LoginScreen: FC = () => {
     const {loginUser, loading, passwordError, passwordErrorText, email, resetLoginError} = useLogin();
-    const {resetPassword, passResetError, passResetSuccess, passResetRequested} = useResetPassword();
+    const {resetPassword, passResetSuccess} = useResetPassword();
 
 
     if (loading) {
@@ -21,16 +21,20 @@ export const LoginScreen: FC = () => {
 
     return (<View style={styles.landingScreen}>
         <View style={styles.landingScreenTop}>
-            <Text style={sharedStyles.header1}>Feelings</Text>
+            <Text style={sharedStyles.header1}>AppName</Text>
             <Image source={require('../assets/logo.jpg')} style={styles.logo}/>
             <LoginForm onAuthenticate={({email, password}) => loginUser({email, password})}/>
         </View>
         <View style={styles.landingScreenBottom}>
             {passwordError && <Message messageType={"DANGER"} text={passwordErrorText}/>}
-            {passResetSuccess && <Message messageType={"SUCCESS"} text="Check mailbox for more instructions."/>}
+            {passResetSuccess && <Message messageType={"SUCCESS"} text="Instructions e-mailed if account exists."/>}
             {passwordError &&
-                <ColoredButton variant="DANGER" title="Reset password"
-                               onPress={() => resetPassword(email, resetLoginError)}/>}
+                <ColoredButton disabled={passResetSuccess} variant={passResetSuccess ? "DISABLED" : "DANGER"}
+                               title="Reset password"
+                               onPress={() => {
+                                   resetPassword(email);
+                                   resetLoginError()
+                               }}/>}
         </View>
     </View>);
 };
