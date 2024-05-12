@@ -2,8 +2,6 @@ import {useState} from "react";
 import {Credentials} from "../../screens/RegisterScreen";
 import {FirebaseError, signInWithEmailAndPassword} from "firebase/auth";
 import {loginAuth} from "./loginAuth";
-import {ColoredButton} from "../../components/ColoredButton";
-import {getCurrentUserId} from "./getCurrentUserId";
 
 
 export const useLogin = (deleteRequest?: boolean) => {

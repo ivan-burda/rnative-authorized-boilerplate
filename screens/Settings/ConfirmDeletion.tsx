@@ -47,7 +47,7 @@ export const ConfirmDeletion: FC = () => {
                 onChangeText: (fieldValue: string) =>
                     inputChangedHandler(fieldValue),
                 value: password,
-                secureTextEntry: false
+                secureTextEntry: true
             }} invalid={false}/>}
             {passwordError && <Message messageType={"DANGER"} text={passwordErrorText}/>}
             {passResetSuccess && <Message messageType={"SUCCESS"} text="Check mailbox for more instructions."/>}

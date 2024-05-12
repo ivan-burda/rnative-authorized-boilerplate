@@ -1,12 +1,11 @@
 import {FC, useState} from 'react';
-import {Button, StyleSheet, Text, View} from "react-native";
+import {Button, Text, View} from "react-native";
 import {InputField} from "../components/InputField/InputField";
 import {isEmailValid} from "../utils/isEmailValid";
 import {isPasswordValid} from "../utils/isPasswordValid";
 import {isUsernameValid} from "../utils/isUsernameValid";
 import {sharedStyles} from "../styles";
 import {RegisterCredentials} from "./RegisterScreen";
-import {Colors} from "../constants/colors";
 
 interface Props {
     onSubmit: ({email, password, username}: RegisterCredentials) => void;
@@ -69,7 +68,7 @@ export const RegisterForm: FC<Props> = ({onSubmit}) => {
                 onChangeText: (fieldValue: string) =>
                     inputChangedHandler("password", fieldValue),
                 value: password,
-                secureTextEntry: false
+                secureTextEntry: true
             }} invalid={passwordValidity}/>
             <InputField label={"Username"} textInputConfig={{
                 autoCapitalize: 'none',

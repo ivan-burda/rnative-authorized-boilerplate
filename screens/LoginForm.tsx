@@ -58,7 +58,7 @@ export const LoginForm: FC<Props> = ({onAuthenticate}) => {
                 onChangeText: (fieldValue: string) =>
                     inputChangedHandler("password", fieldValue),
                 value: password,
-                secureTextEntry: false
+                secureTextEntry: true
             }} invalid={passwordValidity}/>
             {!isFormValid && (<Text style={sharedStyles.errorText}>Please, correct entered details.</Text>)}
             <Button title={"Confirm"} color="seagreen" onPress={submitHandler}/>

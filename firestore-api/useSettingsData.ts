@@ -8,7 +8,7 @@ interface HookResult {
     error: string | null;
 }
 
-const useUserData = (currentUserId: string | null): HookResult => {
+const useSettingsData = (currentUserId: string | null): HookResult => {
     const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -40,4 +40,4 @@ const useUserData = (currentUserId: string | null): HookResult => {
     return {userData, loading, error};
 };
 
-export default useUserData;
+export default useSettingsData;
