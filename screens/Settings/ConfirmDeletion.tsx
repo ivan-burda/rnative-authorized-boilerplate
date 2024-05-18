@@ -33,7 +33,7 @@ export const ConfirmDeletion: FC = () => {
         }
 
         try {
-            await loginUser({email: currentEmail, password});
+            await loginUser({email: currentEmail, password, deleteRequest: true});
             deleteAccount();
         } catch (e: FirebaseError) {
             console.log(e);

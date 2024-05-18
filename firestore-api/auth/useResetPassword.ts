@@ -22,7 +22,6 @@ export const useResetPassword = () => {
             hideMessage()
 
         } catch (error: FirebaseError) {
-            console.log(error);
             setPassResetSuccess(false);
             setPassResetError(error);
             hideMessage()

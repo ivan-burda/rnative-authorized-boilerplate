@@ -1,5 +1,5 @@
-import {useState, useEffect} from 'react';
-import {getDatabase, ref, child, get, onValue} from 'firebase/database';
+import {useEffect, useState} from 'react';
+import {getDatabase, onValue, ref} from 'firebase/database';
 import {UserDetails} from "../screens/Settings/Settings";
 
 interface HookResult {

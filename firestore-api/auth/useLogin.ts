@@ -4,7 +4,7 @@ import {FirebaseError, signInWithEmailAndPassword} from "firebase/auth";
 import {loginAuth} from "./loginAuth";
 
 
-export const useLogin = (deleteRequest?: boolean) => {
+export const useLogin = () => {
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState<string | undefined>();
     const [passwordError, setPasswordError] = useState<string | null>(null);
@@ -13,22 +13,22 @@ export const useLogin = (deleteRequest?: boolean) => {
         setPasswordError(null);
     };
 
-    const loginUser = async ({email, password}: Credentials) => {
+    const loginUser = async ({email, password, deleteRequest}: Credentials) => {
         setLoading(true);
         setPasswordError(null);
 
         try {
             await signInWithEmailAndPassword(loginAuth, email, password);
         } catch (e: FirebaseError) {
-            console.log(e);
             if (e.code.includes("too-many-requests")) {
                 setPasswordError("TOO-MANY-REQUESTS");
-                setPasswordErrorText("Visit mailbox to finish password reset, and then re-try.");
+                setPasswordErrorText("Visit mailbox to finish password reset, and then try again.");
             }
 
-            if (deleteRequest && e.code.includes("invalid-credential")) {
+            if (e.code.includes("invalid-credential") && deleteRequest) {
                 setPasswordError("INVALID PASSWORD");
                 setPasswordErrorText(`The password is incorrect`);
+                return;
             }
 
             if (e.code.includes("invalid-credential")) {
