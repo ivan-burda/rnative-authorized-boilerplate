@@ -31,8 +31,5 @@ export const useUpdateSettings = (currentUserId: string | null): HookResult => {
         }
     };
 
-
     return {updateUser, loading, error};
-
-
 };

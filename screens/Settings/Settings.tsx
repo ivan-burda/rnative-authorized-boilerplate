@@ -3,7 +3,7 @@ import {Image, ImageProps, StyleSheet, Text, View} from "react-native";
 import {Colors} from "../../constants/colors";
 
 import {avatar1, avatar2, avatar3, avatar4, avatar5} from "../../assets/images";
-import useSettingsData from "../../firestore-api/useSettingsData";
+import {useSettingsData} from "../../firestore-api/useSettingsData";
 import {ImageButton} from "../../components/ImageButton/ImageButton";
 import {useUpdateSettings} from "../../firestore-api/useUpdateSettings";
 import {getCurrentUserId} from "../../firestore-api/auth/getCurrentUserId";

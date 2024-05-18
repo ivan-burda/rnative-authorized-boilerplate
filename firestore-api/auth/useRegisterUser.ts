@@ -33,13 +33,10 @@ export const useRegisterUser = () => {
                 setRegistrationError("EMAIL_ALREADY_IN_USE");
                 setRegistrationErrorText(`This e-mail address cannot be used. Try another one.`);
             }
-
         } finally {
             setIsLoading(false);
         }
-
     }
-
 
     return {registerUser, isLoading, registrationError, registrationErrorText}
 }
