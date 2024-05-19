@@ -61,13 +61,15 @@ export const LoginForm: FC<Props> = ({onAuthenticate}) => {
                 secureTextEntry: true
             }} invalid={passwordValidity}/>
             {!isFormValid && (<Text style={sharedStyles.errorText}>Please, correct entered details.</Text>)}
-            <Button title={"Confirm"} color="seagreen" onPress={submitHandler}/>
+            <View>
+                <Button title={"Confirm"} color="seagreen" onPress={submitHandler}/>
+            </View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     loginForm: {
-        marginBottom: 10
-    }
+        marginBottom: 20
+    },
 });

@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     landingScreenBottom: {
-        width: "90%",
+        width: "80%",
         justifyContent: "center",
         alignItems: "center"
     },

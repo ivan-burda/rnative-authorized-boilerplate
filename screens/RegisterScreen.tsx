@@ -33,7 +33,7 @@ export const RegisterScreen: FC = () => {
     return (<View style={styles.RegisterScreen}>
         <Text style={[sharedStyles.header1]}>Register</Text>
         <RegisterForm onSubmit={registerUser}/>
-        <View>
+        <View style={styles.registerScreenBottom}>
             {registrationError && <Message messageType={"DANGER"} text={registrationErrorText}/>}
         </View>
     </View>)
@@ -55,10 +55,11 @@ const styles = StyleSheet.create({
         overflow: "hidden",
         marginBottom: 10
     },
-    landingScreenBottom: {
-        width: "90%",
-        justifyContent: "center",
-        alignItems: "center"
+    registerScreenBottom: {
+        width: "80%",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        textAlign: "left"
     },
 })
 
