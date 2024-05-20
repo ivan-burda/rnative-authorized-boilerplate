@@ -3,7 +3,7 @@ import {Colors} from '../constants/colors';
 
 export const sharedStyles = StyleSheet.create({
     header1: {
-        fontSize: 42,
+        fontSize: 40,
         marginBottom: 10,
         color: Colors.primary500,
     },
